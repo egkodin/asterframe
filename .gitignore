@@ -1,0 +1,15 @@
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+*.swo
+__pycache__/
+*.py[cod]
+node_modules/
+coverage/
+dist/
+.asterframe/
+.env
+.env.*
+!.env.example

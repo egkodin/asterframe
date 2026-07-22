@@ -1,0 +1,31 @@
+name: Feature request
+description: Propose a focused improvement to Asterframe.
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem should this solve?
+      description: Describe a concrete design or workflow failure, not only a desired implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Explain how the command, router, detector, or tool should behave.
+    validations:
+      required: true
+  - type: textarea
+    id: examples
+    attributes:
+      label: Examples or evidence
+      description: Include representative interfaces, code, or failure cases.
+  - type: checkboxes
+    id: source
+    attributes:
+      label: Source material
+      options:
+        - label: Any included source material has clear redistribution terms.
+          required: true

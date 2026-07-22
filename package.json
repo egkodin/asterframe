@@ -1,0 +1,17 @@
+{
+  "name": "asterframe-skill",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Unified design-director skill for AI coding agents.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check:js": "find scripts -type f \\( -name '*.mjs' -o -name '*.js' \\) -print0 | xargs -0 -n1 node --check",
+    "check:python": "python3 -m compileall -q tools/uiux/scripts",
+    "check:manifest": "node scripts/validate-repository.mjs",
+    "test": "node --test scripts/anti-slop/scan.test.mjs",
+    "validate": "npm run check:js && npm test && npm run check:python && npm run check:manifest"
+  }
+}

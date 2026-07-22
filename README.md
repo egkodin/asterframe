@@ -1,3 +1,3 @@
 # Asterframe
 
-Publishing the initial English-language release. The complete source will be committed automatically in the next step.
+A unified design direction skill for AI coding agents.

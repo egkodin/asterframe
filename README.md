@@ -2,8 +2,6 @@
 
 ![Asterframe banner](assets/banner.png)
 
-# Asterframe
-
 **Design direction for AI coding agents.**  
 One skill, 27 commands, 44 deterministic interface rules, live browser iteration, and a local UI/UX intelligence library.
 

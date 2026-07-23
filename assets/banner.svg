@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="400" viewBox="0 0 1600 400" role="img" aria-labelledby="title desc">
+  <title id="title">Asterframe repository banner</title>
+  <desc id="desc">A dark navy interface frame containing a blue-to-violet asterisk, followed by the Asterframe wordmark.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f5f9ff"/>
+      <stop offset="0.52" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#f7f3ff"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0878ff"/>
+      <stop offset="0.5" stop-color="#3c39ff"/>
+      <stop offset="1" stop-color="#7a00ff"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#071a3d" flood-opacity="0.09"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="400" rx="28" fill="url(#bg)"/>
+  <g opacity="0.22" stroke="#8aa8d9" stroke-width="2" stroke-dasharray="8 10">
+    <path d="M0 86H252M58 0V190M0 28L136 164M0 164L136 28"/>
+    <path d="M1384 400V232M1288 318H1600M1350 256L1512 418M1350 418L1512 256" stroke="#b493ef"/>
+  </g>
+  <g transform="translate(340 84)" filter="url(#shadow)">
+    <path d="M34 74V40C34 18 52 0 74 0H222C244 0 262 18 262 40V74" fill="none" stroke="#071a3d" stroke-width="12" stroke-linecap="round"/>
+    <path d="M34 158V192C34 214 52 232 74 232H112M184 232H222C244 232 262 214 262 192V158" fill="none" stroke="#071a3d" stroke-width="12" stroke-linecap="round"/>
+    <path d="M34 74H116M180 74H262" fill="none" stroke="#071a3d" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="68" cy="36" r="6" fill="#071a3d"/>
+    <circle cx="92" cy="36" r="6" fill="#071a3d"/>
+    <circle cx="116" cy="36" r="6" fill="#071a3d"/>
+    <g transform="translate(148 138)" stroke="url(#accent)" stroke-width="12" stroke-linecap="round">
+      <path d="M0-82V-38M0 38V82M-82 0H-38M38 0H82"/>
+      <path d="M-58-58L-27-27M27 27L58 58M58-58L27-27M-27 27L-58 58"/>
+      <path d="M0-28V28M-28 0H28M-20-20L20 20M20-20L-20 20"/>
+    </g>
+  </g>
+  <text x="660" y="250" fill="#071a3d" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="126" font-weight="700" letter-spacing="-5">Asterframe</text>
+</svg>

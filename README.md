@@ -1,6 +1,6 @@
 <div align="center">
 
-![Asterframe banner](assets/banner.svg)
+![Asterframe banner](assets/banner.png)
 
 # Asterframe
 

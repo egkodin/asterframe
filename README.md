@@ -1,5 +1,7 @@
 <div align="center">
 
+![Asterframe banner](assets/banner.svg)
+
 # Asterframe
 
 **Design direction for AI coding agents.**  

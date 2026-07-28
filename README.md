@@ -9,7 +9,7 @@ One skill, 27 commands, 44 deterministic interface rules, live browser iteration
 
 </div>
 
-> **Quick start:** install the repository as an agent skill, then run `/asterframe init` from your project.
+> **Quick start:** run `npx skills add https://github.com/egkodin/asterframe`, reload your agent harness, then run `/asterframe init` from your project.
 
 ## Why Asterframe?
 
@@ -115,7 +115,47 @@ Asterframe can also route natural-language requests without an explicit subcomma
 
 ## Installation
 
-### Codex and agent-compatible harnesses
+### Recommended: `npx skills`
+
+Asterframe follows the Agent Skills format and exposes one discoverable skill named `asterframe`. The `skills` CLI detects the root `SKILL.md` and installs the complete skill directory, including its references, scripts, agents, and local UI/UX library.
+
+Install Asterframe in the current project:
+
+```bash
+npx skills add https://github.com/egkodin/asterframe
+```
+
+GitHub shorthand and an explicit skill name work as well:
+
+```bash
+npx skills add egkodin/asterframe --skill asterframe
+```
+
+Install it globally for your user account:
+
+```bash
+npx skills add egkodin/asterframe --skill asterframe --global
+```
+
+To verify discovery without installing anything:
+
+```bash
+npx skills add egkodin/asterframe --list
+```
+
+During an interactive install, select the agent harnesses you use. The CLI supports project and global installation for Codex, Claude Code, Cursor, and other Agent Skills-compatible tools.
+
+After installation, reload the agent harness and run:
+
+```text
+/asterframe init
+```
+
+### Manual installation
+
+Use a manual clone only when `npx` is unavailable or you need full control over the destination.
+
+#### Codex and agent-compatible harnesses
 
 Clone directly into the project skill directory:
 
@@ -131,27 +171,21 @@ mkdir -p ~/.agents/skills
 git clone https://github.com/egkodin/asterframe.git ~/.agents/skills/asterframe
 ```
 
-### Claude Code
+#### Claude Code
 
 ```bash
 mkdir -p .claude/skills
 git clone https://github.com/egkodin/asterframe.git .claude/skills/asterframe
 ```
 
-### Cursor
+#### Cursor
 
 ```bash
 mkdir -p .cursor/skills
 git clone https://github.com/egkodin/asterframe.git .cursor/skills/asterframe
 ```
 
-Keep the installation directory named `asterframe`. The bundled hooks, live mode, agents, and pinning scripts use that identity.
-
-After installation, reload the agent harness and run:
-
-```text
-/asterframe init
-```
+Keep a manually cloned installation directory named `asterframe`. The bundled hooks, live mode, agents, and pinning scripts use that identity.
 
 ## How it works
 

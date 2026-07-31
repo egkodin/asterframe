@@ -1,8 +1,8 @@
-name: Publish source
+name: Restore complete source
 
 on:
   push:
-    branches: [main]
+    branches: [agent/restore-full-repository]
     paths:
       - '.bootstrap/**'
       - '.github/workflows/bootstrap.yml'
@@ -12,18 +12,18 @@ permissions:
   contents: write
 
 concurrency:
-  group: asterframe-bootstrap
+  group: asterframe-full-restore
   cancel-in-progress: false
 
 jobs:
-  publish:
+  restore:
     if: ${{ github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Check out bootstrap commit
+      - name: Check out restoration branch
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Assemble Asterframe
+      - name: Assemble, validate, and publish Asterframe
         run: bash .bootstrap/bootstrap.sh

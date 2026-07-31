@@ -66,13 +66,8 @@ mkdir -p "$ASSEMBLED/tools/uiux"
 cp -a "$UIUX_DIR/data" "$ASSEMBLED/tools/uiux/"
 cp -a "$UIUX_DIR/scripts" "$ASSEMBLED/tools/uiux/"
 
-# The archived chunks were base64-encoded independently. Decode each file
-# separately, then concatenate the decoded binary streams.
-if compgen -G '.bootstrap/part-*' > /dev/null; then
-  decode_parts .bootstrap/part-* > "$TMP/base-overlay.tar.xz"
-  tar -xJf "$TMP/base-overlay.tar.xz" -C "$ASSEMBLED"
-fi
-
+# The overlay chunks were base64-encoded independently. Decode each file
+# separately, then concatenate the decoded binary streams into one archive.
 decode_parts .bootstrap/overlay.part-* > "$TMP/overlay.tar.xz"
 tar -xJf "$TMP/overlay.tar.xz" -C "$ASSEMBLED"
 

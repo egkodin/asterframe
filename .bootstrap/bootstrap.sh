@@ -59,13 +59,17 @@ mkdir -p "$ASSEMBLED/tools/uiux"
 cp -a "$UIUX_DIR/data" "$ASSEMBLED/tools/uiux/"
 cp -a "$UIUX_DIR/scripts" "$ASSEMBLED/tools/uiux/"
 
-# Reconstruct the historical overlay defensively. The old publication process
-# used multiple chunking strategies over time, so generate both plausible
-# candidates and select the one that is a valid XZ-compressed tar archive.
+# Reconstruct the historical overlay. Two base64 characters were lost at the
+# boundary before the final chunk, so recover them by XZ checksum and tar
+# structure rather than accepting an unverified archive.
 TMP="$TMP" python3 - <<'PY'
 import base64
+import io
+import itertools
+import lzma
 import os
 import re
+import tarfile
 from pathlib import Path
 
 root = Path('.bootstrap')
@@ -75,58 +79,56 @@ if not parts:
     raise SystemExit('No overlay chunks were found.')
 
 texts = [re.sub(rb'\s+', b'', path.read_bytes()) for path in parts]
+alphabet = b'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+joined = b''.join(texts)
 
 
-def padded(data: bytes) -> bytes:
-    return data + b'=' * ((-len(data)) % 4)
+def valid_tar_xz(encoded: bytes):
+    try:
+        raw = base64.b64decode(encoded, validate=True)
+        payload = lzma.decompress(raw)
+        with tarfile.open(fileobj=io.BytesIO(payload), mode='r:') as archive:
+            names = [name.lstrip('./') for name in archive.getnames()]
+        required = (
+            'SKILL.md' in names
+            and any(name.startswith('reference/') for name in names)
+            and any(name.startswith('scripts/') for name in names)
+        )
+        return raw if required else None
+    except (ValueError, lzma.LZMAError, tarfile.TarError):
+        return None
 
-candidates = {}
-try:
-    candidates['joined-text'] = base64.b64decode(padded(b''.join(texts)), validate=False)
-except Exception as exc:
-    print(f'joined-text decode failed: {exc}')
+# First accept an intact stream if possible.
+padded = joined + b'=' * ((-len(joined)) % 4)
+raw = valid_tar_xz(padded)
+if raw is not None:
+    (out / 'overlay-recovered.tar.xz').write_bytes(raw)
+    print('Overlay was intact after padding normalization.')
+    raise SystemExit(0)
 
-try:
-    candidates['decoded-parts'] = b''.join(
-        base64.b64decode(padded(text), validate=False) for text in texts
-    )
-except Exception as exc:
-    print(f'decoded-parts decode failed: {exc}')
+# Diagnostics identify the damaged boundary as the join before the final part.
+prefix = b''.join(texts[:-1])
+suffix = texts[-1]
+for left, right in itertools.product(alphabet, repeat=2):
+    candidate = prefix + bytes((left, right)) + suffix
+    raw = valid_tar_xz(candidate)
+    if raw is not None:
+        (out / 'overlay-recovered.tar.xz').write_bytes(raw)
+        print(f'Recovered missing base64 characters: {chr(left)}{chr(right)}')
+        raise SystemExit(0)
 
-for name, data in candidates.items():
-    path = out / f'overlay-{name}.tar.xz'
-    path.write_bytes(data)
-    print(f'candidate {name}: {len(data)} bytes')
-
-for index, text in enumerate(texts):
-    non_base64 = re.sub(rb'[A-Za-z0-9+/=]', b'', text)
-    print(
-        f'chunk {index:03d}: chars={len(text)} mod4={len(text) % 4} '
-        f'padding={text.count(b"=")} invalid={len(non_base64)}'
-    )
+raise SystemExit('Unable to recover the archived Asterframe overlay.')
 PY
 
-OVERLAY=""
-for candidate in "$TMP"/overlay-*.tar.xz; do
-  [[ -f "$candidate" ]] || continue
-  TEST_DIR="$TMP/test-$(basename "$candidate" .tar.xz)"
-  mkdir -p "$TEST_DIR"
-  if xz -t "$candidate" >/dev/null 2>&1 \
-    && tar -xJf "$candidate" -C "$TEST_DIR" >/dev/null 2>&1 \
-    && [[ -f "$TEST_DIR/SKILL.md" ]] \
-    && [[ -d "$TEST_DIR/reference" ]] \
-    && [[ -d "$TEST_DIR/scripts" ]]; then
-    OVERLAY="$candidate"
-    break
-  fi
-done
+OVERLAY="$TMP/overlay-recovered.tar.xz"
+xz -t "$OVERLAY"
+TEST_DIR="$TMP/overlay-test"
+mkdir -p "$TEST_DIR"
+tar -xJf "$OVERLAY" -C "$TEST_DIR"
+[[ -f "$TEST_DIR/SKILL.md" ]]
+[[ -d "$TEST_DIR/reference" ]]
+[[ -d "$TEST_DIR/scripts" ]]
 
-if [[ -z "$OVERLAY" ]]; then
-  echo "Unable to reconstruct a valid Asterframe overlay archive." >&2
-  exit 1
-fi
-
-echo "Using overlay candidate: $(basename "$OVERLAY")"
 tar -xJf "$OVERLAY" -C "$ASSEMBLED"
 
 # Preserve repository branding and the banner-enabled README already on main.

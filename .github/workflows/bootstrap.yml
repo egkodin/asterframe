@@ -6,6 +6,11 @@ on:
     paths:
       - '.bootstrap/**'
       - '.github/workflows/bootstrap.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - '.bootstrap/**'
+      - '.github/workflows/bootstrap.yml'
   workflow_dispatch:
 
 permissions:

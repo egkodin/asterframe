@@ -1,1 +1,1 @@
-restore via merge
+retry complete restoration with independent chunk decoding

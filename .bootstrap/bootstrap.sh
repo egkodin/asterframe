@@ -9,6 +9,13 @@ trap 'git worktree remove --force "$MAIN_WORKTREE" >/dev/null 2>&1 || true; rm -
 
 mkdir -p "$ASSEMBLED"
 
+decode_parts() {
+  local part
+  for part in "$@"; do
+    base64 --decode "$part"
+  done
+}
+
 git clone --depth 1 https://github.com/pbakaus/impeccable.git "$TMP/core"
 git clone --depth 1 https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git "$TMP/uiux"
 
@@ -59,7 +66,14 @@ mkdir -p "$ASSEMBLED/tools/uiux"
 cp -a "$UIUX_DIR/data" "$ASSEMBLED/tools/uiux/"
 cp -a "$UIUX_DIR/scripts" "$ASSEMBLED/tools/uiux/"
 
-cat .bootstrap/overlay.part-* | base64 --decode > "$TMP/overlay.tar.xz"
+# The archived chunks were base64-encoded independently. Decode each file
+# separately, then concatenate the decoded binary streams.
+if compgen -G '.bootstrap/part-*' > /dev/null; then
+  decode_parts .bootstrap/part-* > "$TMP/base-overlay.tar.xz"
+  tar -xJf "$TMP/base-overlay.tar.xz" -C "$ASSEMBLED"
+fi
+
+decode_parts .bootstrap/overlay.part-* > "$TMP/overlay.tar.xz"
 tar -xJf "$TMP/overlay.tar.xz" -C "$ASSEMBLED"
 
 # Preserve repository branding and the banner-enabled README already on main.

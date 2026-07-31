@@ -1,1 +1,1 @@
-restore via merge
+restore with checksum recovery

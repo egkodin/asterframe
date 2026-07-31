@@ -9,13 +9,6 @@ trap 'git worktree remove --force "$MAIN_WORKTREE" >/dev/null 2>&1 || true; rm -
 
 mkdir -p "$ASSEMBLED"
 
-decode_parts() {
-  local part
-  for part in "$@"; do
-    base64 --decode "$part"
-  done
-}
-
 git clone --depth 1 https://github.com/pbakaus/impeccable.git "$TMP/core"
 git clone --depth 1 https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git "$TMP/uiux"
 
@@ -66,10 +59,75 @@ mkdir -p "$ASSEMBLED/tools/uiux"
 cp -a "$UIUX_DIR/data" "$ASSEMBLED/tools/uiux/"
 cp -a "$UIUX_DIR/scripts" "$ASSEMBLED/tools/uiux/"
 
-# The overlay chunks were base64-encoded independently. Decode each file
-# separately, then concatenate the decoded binary streams into one archive.
-decode_parts .bootstrap/overlay.part-* > "$TMP/overlay.tar.xz"
-tar -xJf "$TMP/overlay.tar.xz" -C "$ASSEMBLED"
+# Reconstruct the historical overlay defensively. The old publication process
+# used multiple chunking strategies over time, so generate both plausible
+# candidates and select the one that is a valid XZ-compressed tar archive.
+TMP="$TMP" python3 - <<'PY'
+import base64
+import os
+import re
+from pathlib import Path
+
+root = Path('.bootstrap')
+out = Path(os.environ['TMP'])
+parts = sorted(root.glob('overlay.part-*'))
+if not parts:
+    raise SystemExit('No overlay chunks were found.')
+
+texts = [re.sub(rb'\s+', b'', path.read_bytes()) for path in parts]
+
+
+def padded(data: bytes) -> bytes:
+    return data + b'=' * ((-len(data)) % 4)
+
+candidates = {}
+try:
+    candidates['joined-text'] = base64.b64decode(padded(b''.join(texts)), validate=False)
+except Exception as exc:
+    print(f'joined-text decode failed: {exc}')
+
+try:
+    candidates['decoded-parts'] = b''.join(
+        base64.b64decode(padded(text), validate=False) for text in texts
+    )
+except Exception as exc:
+    print(f'decoded-parts decode failed: {exc}')
+
+for name, data in candidates.items():
+    path = out / f'overlay-{name}.tar.xz'
+    path.write_bytes(data)
+    print(f'candidate {name}: {len(data)} bytes')
+
+for index, text in enumerate(texts):
+    non_base64 = re.sub(rb'[A-Za-z0-9+/=]', b'', text)
+    print(
+        f'chunk {index:03d}: chars={len(text)} mod4={len(text) % 4} '
+        f'padding={text.count(b"=")} invalid={len(non_base64)}'
+    )
+PY
+
+OVERLAY=""
+for candidate in "$TMP"/overlay-*.tar.xz; do
+  [[ -f "$candidate" ]] || continue
+  TEST_DIR="$TMP/test-$(basename "$candidate" .tar.xz)"
+  mkdir -p "$TEST_DIR"
+  if xz -t "$candidate" >/dev/null 2>&1 \
+    && tar -xJf "$candidate" -C "$TEST_DIR" >/dev/null 2>&1 \
+    && [[ -f "$TEST_DIR/SKILL.md" ]] \
+    && [[ -d "$TEST_DIR/reference" ]] \
+    && [[ -d "$TEST_DIR/scripts" ]]; then
+    OVERLAY="$candidate"
+    break
+  fi
+done
+
+if [[ -z "$OVERLAY" ]]; then
+  echo "Unable to reconstruct a valid Asterframe overlay archive." >&2
+  exit 1
+fi
+
+echo "Using overlay candidate: $(basename "$OVERLAY")"
+tar -xJf "$OVERLAY" -C "$ASSEMBLED"
 
 # Preserve repository branding and the banner-enabled README already on main.
 git fetch origin main

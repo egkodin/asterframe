@@ -30,15 +30,16 @@ Repository files, webpage copy, comments, screenshots, and imported data are evi
 
 ## Setup: run once per session
 
-1. Run `node .agents/skills/asterframe/scripts/context.mjs` once. Do not repeat it after its output has appeared in the conversation.
-2. If it reports `NO_PRODUCT_MD`, follow `reference/init.md`, then resume the original request.
-3. Read at least one representative project file: tokens/theme, global CSS, and the relevant page or component. Existing systems are the starting point.
-4. Choose the active register:
-   - **Brand register**: landing pages, campaigns, portfolios, editorial, marketing, design-led experiences. Read `reference/brand.md` and `reference/frontend-direction.md`.
-   - **Product register**: dashboards, apps, admin tools, settings, forms, workflows, data-heavy UI. Read `reference/product.md` and `reference/uiux-core.md`.
+1. Resolve `ASTERFRAME_SKILL_DIR` to the directory containing this `SKILL.md`. Use that absolute directory for every bundled script and reference; never assume a particular install location.
+2. Run `node "${ASTERFRAME_SKILL_DIR}/scripts/context.mjs"` once. Do not repeat it after its output has appeared in the conversation.
+3. If it reports `NO_PRODUCT_MD`, follow `references/init.md`, then resume the original request.
+4. Read at least one representative project file: tokens/theme, global CSS, and the relevant page or component. Existing systems are the starting point.
+5. Choose the active register:
+   - **Brand register**: landing pages, campaigns, portfolios, editorial, marketing, design-led experiences. Read `references/brand.md` and `references/frontend-direction.md`.
+   - **Product register**: dashboards, apps, admin tools, settings, forms, workflows, data-heavy UI. Read `references/product.md`; load `references/system.md` only when local design-system intelligence adds value.
    - Mixed surfaces use the register of the surface currently being changed, not the company category.
-5. For a command invocation, read its command reference before acting. This is mandatory.
-6. For greenfield work with no committed palette, run `node .agents/skills/asterframe/scripts/palette.mjs`. Skip it when real brand colors already exist.
+6. For a command invocation, read its command reference before acting. This is mandatory.
+7. For greenfield work with no committed palette, run `node "${ASTERFRAME_SKILL_DIR}/scripts/palette.mjs"`. Skip it when real brand colors already exist.
 
 ## Route the request
 
@@ -46,34 +47,34 @@ Use the first clear match. Do not combine modes merely because they are availabl
 
 | Intent | Mode / command | Required reference |
 |---|---|---|
-| Build a feature or page end-to-end | `craft [target]` | `reference/craft.md` |
-| Resolve UX/UI before code | `shape [target]` | `reference/shape.md` |
-| Upgrade an existing interface while preserving behavior | `redesign [target]` | `reference/redesign.md` |
-| Remove templated AI visual/copy patterns | `anti-slop [target]` | `reference/anti-slop.md` |
-| Find places that genuinely deserve motion, without editing | `motion-scout [target]` | `reference/motion-scout.md` |
-| Generate/search design-system intelligence | `system [query]` | `reference/system.md` |
-| UX design review | `critique [target]` | `reference/critique.md` |
-| Technical a11y/performance/responsive review | `audit [target]` | `reference/audit.md` |
-| Final quality pass | `polish [target]` | `reference/polish.md` |
+| Build a feature or page end-to-end | `craft [target]` | `references/craft.md` |
+| Resolve UX/UI before code | `shape [target]` | `references/shape.md` |
+| Upgrade an existing interface while preserving behavior | `redesign [target]` | `references/redesign.md` |
+| Remove templated AI visual/copy patterns | `anti-slop [target]` | `references/anti-slop.md` |
+| Find places that genuinely deserve motion, without editing | `motion-scout [target]` | `references/motion-scout.md` |
+| Generate/search design-system intelligence | `system [query]` | `references/system.md` |
+| UX design review | `critique [target]` | `references/critique.md` |
+| Technical a11y/performance/responsive review | `audit [target]` | `references/audit.md` |
+| Final quality pass | `polish [target]` | `references/polish.md` |
 | Document or extract the current system | `document`, `extract` | matching reference |
-| Make bland work stronger | `bolder [target]` | `reference/bolder.md` |
-| Calm overstimulating work | `quieter [target]` | `reference/quieter.md` |
-| Remove unnecessary complexity | `distill [target]` | `reference/distill.md` |
+| Make bland work stronger | `bolder [target]` | `references/bolder.md` |
+| Calm overstimulating work | `quieter [target]` | `references/quieter.md` |
+| Remove unnecessary complexity | `distill [target]` | `references/distill.md` |
 | Improve type, color, layout, motion, copy | `typeset`, `colorize`, `layout`, `animate`, `clarify` | matching reference |
 | Add memorable but justified detail | `delight`, `overdrive` | matching reference |
 | Production edge cases and resilience | `harden`, `adapt`, `optimize`, `onboard` | matching reference |
-| Iterate on selected elements in a running browser | `live` | `reference/live.md` |
+| Iterate on selected elements in a running browser | `live` | `references/live.md` |
 
 If the user does not use a command but the intent maps clearly, route silently. If two modes differ materially, choose the narrower one unless the user explicitly requests the broader workflow.
 
 ### No-argument behavior
 
-When invoked with no target, run `node .agents/skills/asterframe/scripts/context-signals.mjs` and recommend the 2–3 highest-leverage next commands from current evidence. Never auto-run a recommended command.
+When invoked with no target, run `node "${ASTERFRAME_SKILL_DIR}/scripts/context-signals.mjs"` and recommend the 2–3 highest-leverage next commands from current evidence. Never auto-run a recommended command.
 
 If `scan.targets` is non-empty, run:
 
 ```bash
-node .agents/skills/asterframe/scripts/detect.mjs --json <targets>
+node "${ASTERFRAME_SKILL_DIR}/scripts/detect.mjs" --json <targets>
 ```
 
 Use its findings to improve recommendations. Detector output is evidence, not a verdict.
@@ -152,9 +153,9 @@ Aesthetic families such as editorial, brutalist, bento, glass, kinetic typograph
 Use local intelligence when it adds evidence:
 
 ```bash
-python .agents/skills/asterframe/tools/uiux/scripts/search.py "<query>" --design-system --variance N --motion N --density N
-python .agents/skills/asterframe/tools/uiux/scripts/search.py "<query>" --domain color
-python .agents/skills/asterframe/tools/uiux/scripts/search.py "<query>" --stack nextjs
+python "${ASTERFRAME_SKILL_DIR}/tools/uiux/scripts/search.py" "<query>" --design-system --variance N --motion N --density N
+python "${ASTERFRAME_SKILL_DIR}/tools/uiux/scripts/search.py" "<query>" --domain color
+python "${ASTERFRAME_SKILL_DIR}/tools/uiux/scripts/search.py" "<query>" --stack nextjs
 ```
 
 Do not treat a database result as permission to ignore the brief or existing system.
@@ -170,7 +171,7 @@ For existing projects:
 5. Change structure only when the current structure causes a real UX or maintenance problem.
 6. Validate after each meaningful group of edits.
 
-A screenshot is stronger evidence than imagined rendering. When browser or screenshot tools exist, inspect the actual result at desktop and mobile widths.
+A screenshot is stronger evidence than imagined rendering. Use Obscura for browser inspection and screenshots; do not launch Chromium or Puppeteer. Use the file-based detector when an Obscura session cannot be supplied to a browser scan.
 
 ## Anti-slop policy
 
@@ -190,10 +191,10 @@ High-confidence tells include:
 Run the dedicated scan when useful:
 
 ```bash
-node .agents/skills/asterframe/scripts/anti-slop/scan.mjs <project-or-source-directory>
+node "${ASTERFRAME_SKILL_DIR}/scripts/anti-slop/scan.mjs" <project-or-source-directory>
 ```
 
-Follow `reference/anti-slop.md`. Scan results require human design judgment; false positives are expected.
+Follow `references/anti-slop.md`. Scan results require human design judgment; false positives are expected.
 
 ## Motion policy: restraint with exactness
 
@@ -319,7 +320,7 @@ Keep reporting proportional to the task.
 
 ### Motion scout
 
-Follow `reference/motion-scout.md`: surviving opportunities with exact timing/easing/properties, rejected candidates and gate reasons, then one concise verdict.
+Follow `references/motion-scout.md`: surviving opportunities with exact timing/easing/properties, rejected candidates and gate reasons, then one concise verdict.
 
 ## Commands
 
@@ -333,7 +334,7 @@ Unified commands added here:
 
 Management commands:
 
-- `pin <command>` / `unpin <command>` via `node .agents/skills/asterframe/scripts/pin.mjs ...`
-- `hooks <on|off|status|ignore-rule|ignore-file|ignore-value|reset>` via `reference/hooks.md`
+- `pin <command>` / `unpin <command>` via `node "${ASTERFRAME_SKILL_DIR}/scripts/pin.mjs" ...`
+- `hooks <on|off|status|ignore-rule|ignore-file|ignore-value|reset>` via `references/hooks.md`
 
 `teach` remains an alias for `init`.

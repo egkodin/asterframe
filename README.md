@@ -88,7 +88,7 @@ Examples include gradient text, generic AI palettes, nested cards, repeated sect
 Run the focused anti-slop scanner directly:
 
 ```bash
-node .agents/skills/asterframe/scripts/anti-slop/scan.mjs <project-or-source-directory>
+node "${ASTERFRAME_SKILL_DIR}/scripts/anti-slop/scan.mjs" <project-or-source-directory>
 ```
 
 Detector output is evidence, not an automatic verdict. The skill applies context and design judgment before recommending changes.
@@ -203,13 +203,13 @@ Asterframe routes each request to the narrowest appropriate workflow instead of 
 Asterframe includes a searchable local knowledge base covering product patterns, interface styles, colors, typography, charts, motion, UX guidance, and framework-specific implementation advice.
 
 ```bash
-python .agents/skills/asterframe/tools/uiux/scripts/search.py \
+python "${ASTERFRAME_SKILL_DIR}/tools/uiux/scripts/search.py" \
   "analytics dashboard" --design-system --variance 4 --motion 2 --density 8
 
-python .agents/skills/asterframe/tools/uiux/scripts/search.py \
+python "${ASTERFRAME_SKILL_DIR}/tools/uiux/scripts/search.py" \
   "financial product" --domain color
 
-python .agents/skills/asterframe/tools/uiux/scripts/search.py \
+python "${ASTERFRAME_SKILL_DIR}/tools/uiux/scripts/search.py" \
   "accessible data table" --stack nextjs
 ```
 
@@ -218,7 +218,7 @@ python .agents/skills/asterframe/tools/uiux/scripts/search.py \
 ```text
 asterframe/
 ├── SKILL.md                 # Main router and operating principles
-├── reference/               # Command and design guidance
+├── references/               # Command and design guidance
 ├── scripts/                 # Context, detector, hooks, pinning, and live mode
 ├── tools/uiux/              # Searchable UI/UX data and Python utilities
 ├── agents/                  # Supporting agent definitions

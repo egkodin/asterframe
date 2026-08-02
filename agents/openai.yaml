@@ -1,0 +1,4 @@
+interface:
+  display_name: "Asterframe"
+  short_description: "Design, audit, and harden frontend interfaces"
+  default_prompt: "Use $asterframe to redesign this interface without breaking its behavior."

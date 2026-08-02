@@ -25,7 +25,7 @@ Contributions should preserve the project's core behavior:
 When adding or changing a command:
 
 - update `scripts/command-metadata.json`;
-- add or update the matching file in `reference/`;
+- add or update the matching file in `references/`;
 - update routing in `SKILL.md`;
 - update the command table in `README.md`;
 - adjust the manifest validation count when intentionally adding or removing commands.

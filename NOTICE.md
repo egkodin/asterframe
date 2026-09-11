@@ -12,6 +12,14 @@ Asterframe is a materially reorganized integration assembled from the user-provi
 - `taste-skill` — distilled into context inference, design dials, design-system selection, anti-default discipline, and preflight rules.
 - `ui-ux-pro-max` — retained as the local searchable data and design-system utility under `tools/uiux/`.
 
+The embedded UI/UX catalog and runtime were refreshed from
+`nextlevelbuilder/ui-ux-pro-max-skill` at the revision recorded in
+`SOURCE_MAP.md`; its MIT notice is preserved at
+`LICENSES/ui-ux-pro-max-MIT.txt`.
+
+The redistributed redesign material retains its upstream MIT notice at
+`LICENSES/redesign-existing-projects-MIT.txt`.
+
 ## Material modifications
 
 The following parts are materially modified or newly assembled for Asterframe:
@@ -23,5 +31,10 @@ The following parts are materially modified or newly assembled for Asterframe:
 - `redesign`, `anti-slop`, `motion-scout`, and `system` workflows;
 - runtime, hook, live-mode, command, path, and environment-variable identity;
 - repository documentation, validation, and contribution files.
+
+The 2026-09-11 refresh also updates the source-derived frontend-direction,
+motion-scout, anti-slop, and UI/UX modules. The Asterframe-specific router,
+command names, detector integration, and live runtime remain intentionally
+owned by this integration.
 
 No ownership claim is made over third-party source material. Asterframe is not offered under one blanket license. Preserve applicable upstream notices and verify redistribution rights for each source module before redistributing or incorporating this repository into another product.

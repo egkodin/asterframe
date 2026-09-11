@@ -8,13 +8,15 @@ description: >-
   the catalogue of tells: indigo→violet gradients, gradient-clip headlines, the
   default semantic palette, one-hue status boxes, atmospheric gradients,
   serif-italic emphasis, highlighted keywords, AI copywriting voice ("not just
-  X — it's Y"), emoji everywhere, glowing status dots, colored-left-border
+  X — it's Y"), emoji everywhere, glowing status dots, wobbling spinners,
+  colored-left-border
   callouts, pastel icon tiles, glassmorphism, over-rounding, oversized shadows,
   borders that die at corners, badge & pill spam, AI-drawn SVG icons, kickers
   over every heading, flat type
-  hierarchies, invented stat rows (10k+ / 99.9% / 24/7), 01/02/03 section
+  hierarchies, invented stat rows, 01/02/03 section
   markers, cards nested in cards, the default Inter/Space Grotesk look, and
-  more. Works on HTML/CSS, React/Vue/Svelte/Astro, Tailwind, and Markdown copy.
+  more. Works on HTML/CSS, React/Vue/Svelte/Astro, Tailwind, PHP, and Markdown
+  copy.
 ---
 
 # Kill AI Slop
@@ -49,12 +51,20 @@ Run the bundled scanner, which greps the codebase for the code-level signals of
 each tell and prints grouped `file:line` hits:
 
 ```
-node scripts/scan.mjs <root>          # human-readable report
-node scripts/scan.mjs <root> --json   # machine-readable, for triage
+node "${ASTERFRAME_SKILL_DIR}/scripts/anti-slop/scan.mjs" <root>          # human-readable report
+node "${ASTERFRAME_SKILL_DIR}/scripts/anti-slop/scan.mjs" <root> --json   # machine-readable, for triage
 ```
 
 It is pure Node (no dependencies) and never edits files. Use its output as a
 starting map, not gospel — confirm each hit by reading the code.
+
+To narrow a scan: `--only=01,06` / `--skip=19` filter by tell id, and
+`--exclude=legacy` drops paths (substring match on the project-relative path).
+`--rules=extra.mjs` loads additional project- or language-specific tells
+(`${ASTERFRAME_SKILL_DIR}/scripts/anti-slop/rules.ru.mjs` is a shipped Russian-copy example and the template for
+your own). Hits the user has confirmed as intentional can be pinned in source
+with `deslop-ignore`, `deslop-ignore-next-line 06`, or `deslop-ignore-file`
+comments — prefer the id-scoped forms so new tells still surface.
 
 ### 3. Triage
 For every hit, open the file and decide **slop vs. intentional**. This is the
@@ -62,8 +72,8 @@ step that separates this skill from a lint rule. A gradient, a serif, or an
 emoji can be a real, defended choice. Keep anything the user clearly chose
 (brand tokens, a logo, a deliberate illustration). Flag only defaults.
 
-Read `references/taxonomy.md` for what each tell is and why it reads as
-machine-made, and `references/detection.md` for the exact patterns and their
+Read `references/anti-slop/taxonomy.md` for what each tell is and why it reads as
+machine-made, and `references/anti-slop/detection.md` for the exact patterns and their
 common false positives.
 
 ### 4. Report
@@ -83,7 +93,7 @@ Then ask which groups to apply, or whether to proceed on all.
 
 ### 5. Fix
 Apply the minimal change that removes the tell while preserving intent and
-function. Use `references/fixes.md` for the before→after pattern per tell.
+function. Use `references/anti-slop/fixes.md` for the before→after pattern per tell.
 
 - Prefer editing shared tokens/components over touching every call site.
 - Never invent new brand colors; if a palette must change, propose neutrals +
@@ -105,7 +115,7 @@ function. Use `references/fixes.md` for the before→after pattern per tell.
 
 ## References
 
-- `references/taxonomy.md` — the 33 tells: what each is, why it's slop, the fix.
-- `references/detection.md` — concrete ripgrep/regex patterns + false positives.
-- `references/fixes.md` — before→after remediation patterns.
-- `scripts/scan.mjs` — the dependency-free scanner.
+- `references/anti-slop/taxonomy.md` — the 35 tells: what each is, why it's slop, the fix.
+- `references/anti-slop/detection.md` — concrete ripgrep/regex patterns + false positives.
+- `references/anti-slop/fixes.md` — before→after remediation patterns.
+- `${ASTERFRAME_SKILL_DIR}/scripts/anti-slop/scan.mjs` — the dependency-free scanner.

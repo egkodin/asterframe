@@ -21,7 +21,7 @@ Asterframe gives the agent a complete design operating system instead of a loose
 - **One routed workflow.** Creation, redesign, critique, audit, anti-slop, motion, hardening, and system work share one source of truth.
 - **Preservation-aware redesign.** Existing behavior, architecture, accessibility semantics, analytics hooks, and brand commitments are treated as constraints.
 - **Deterministic checks.** Forty-four rules detect recurring AI-generated design patterns and general quality problems without requiring an API key.
-- **Local design intelligence.** A searchable UI/UX dataset helps choose palettes, typography, product patterns, charts, motion, and stack-specific implementation guidance.
+- **Local design intelligence.** The refreshed catalog covers 79 searchable styles, 192 palettes, 74 font pairings, 192 product types, 119 UX guidelines, 25 chart types, curated icons, and 22 stack catalogs.
 - **Live browser iteration.** Selected elements can be explored as visual variants in a running application before changes are accepted.
 
 ## What's included
@@ -200,7 +200,7 @@ Asterframe routes each request to the narrowest appropriate workflow instead of 
 
 ## Local UI/UX intelligence
 
-Asterframe includes a searchable local knowledge base covering product patterns, interface styles, colors, typography, charts, motion, UX guidance, and framework-specific implementation advice.
+Asterframe includes a searchable local knowledge base covering product patterns, interface styles, colors, typography, charts, motion, UX guidance, curated icon semantics, and framework-specific implementation advice. The catalog is refreshed from upstream and validated offline with its data-contract checker.
 
 ```bash
 python "${ASTERFRAME_SKILL_DIR}/tools/uiux/scripts/search.py" \
@@ -237,7 +237,7 @@ The repository is tested with Node.js 22 and Python 3.13.
 npm run validate
 ```
 
-This checks JavaScript syntax, runs the anti-slop scanner tests, compiles the Python utilities, validates the command manifest, and confirms that retired project names are absent.
+This checks JavaScript syntax, runs the anti-slop scanner tests, compiles the Python utilities, validates the embedded UI/UX data contract, validates the command manifest, and confirms that retired project names are absent.
 
 ## Project status
 

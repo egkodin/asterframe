@@ -1,9 +1,10 @@
 # The AI-slop taxonomy
 
-33 tells, in two tiers. **Classic** = widely recognised. **Evolved** = newer
+35 tells, in two tiers. **Classic** = widely recognised. **Evolved** = newer
 defaults that already read as templated. For each: what it is, why it reads as
-machine-made, and the fix. Detection patterns live in `detection.md`; code
-patches in `fixes.md`.
+machine-made, and the fix. Detection patterns live in
+`references/anti-slop/detection.md`; code patches in
+`references/anti-slop/fixes.md`.
 
 The rule under every entry: slop is the *absence of a decision*. A tell is only
 slop when it's a default nobody chose. The same element, chosen and defended,
@@ -240,9 +241,24 @@ deciding which one means something.
 border, opacity), 120–200ms, standard ease. Hover feedback is a surface shift,
 not growth; save spring physics for things that genuinely move through space.
 
+**27 · The wobbling spinner** — a loading spinner that doesn't turn around its
+own centre: the arc wobbles, tracing a little circle as it spins. Off-centre
+artwork, a stray `transform-origin`, or a rotate keyframe that clobbers the
+centering `translate(-50%, -50%)` (a keyframe replaces the whole `transform`).
+A spinner has exactly one job — rotate in place around a fixed point — and
+anyone who runs the page sees the wobble within half a second; shipping it is
+an admission that nobody ever watched the interface move. Other tells are an
+absence of taste; this one is an absence of looking. It lands at the worst
+moment: the user has nothing to do but stare, and the most-watched element on
+the page is limping. "Loading" reads as "broken."
+*Fix:* give the rotation a real centre: artwork centred in its own box (the
+SVG arc centred on the viewBox), `transform-origin` at center, and centering
+kept out of the animated `transform` — position with a wrapper or the
+standalone `rotate` property. Then watch one full revolution.
+
 ## Layout
 
-**27 · The all-caps card grid** — an ALL-CAPS label plus a number or icon,
+**28 · The all-caps card grid** — an ALL-CAPS label plus a number or icon,
 copied into rows of interchangeable cards: feature grids and dashboard
 stat-cards alike. It fakes structure while stuffing unrelated things into
 identical boxes; the ALL-CAPS micro-label is the default costume for "looks
@@ -250,7 +266,7 @@ designed."
 *Fix:* decide the single most important thing and show it fully; if you must
 list, use real hierarchy and contrast, not a grid of equal-weight cards.
 
-**28 · The invented stat row** — three big numbers in a row: 10k+ developers,
+**29 · The invented stat row** — three big numbers in a row: 10k+ developers,
 99.9% uptime, 24/7 support, on a product that launched yesterday. Social proof
 turned into a layout, filled whether or not the proof exists; the numbers are
 set dressing (a round 10k+, two nines, a 24/7), not measurements. Real numbers
@@ -259,7 +275,7 @@ are odd and specific — and one invented figure poisons every true one beside i
 real, checkable figure beats three round ones. No numbers yet? Say what the
 product does.
 
-**29 · The 01 / 02 / 03 section markers** — a giant faint ordinal beside every
+**30 · The 01 / 02 / 03 section markers** — a giant faint ordinal beside every
 marketing section (01 Collaborate, 02 Innovate, 03 Scale) as if they were steps
 in a sequence. Numbering is a claim that these things happen in this order;
 feature sections have no order, so the numerals are costume borrowed from
@@ -268,7 +284,7 @@ structured without deciding on a structure.
 *Fix:* number what's genuinely ordered — install steps, a changelog, a
 catalogue — and delete the ornamental ordinals everywhere else.
 
-**30 · Cards inside cards** — a bordered, rounded, shadowed card holding
+**31 · Cards inside cards** — a bordered, rounded, shadowed card holding
 another card holding another, every layer with its own surface and padding. A
 card claims its content is one self-contained thing; nested three deep, nothing
 is contained and the padding stacks until content is a sliver. The model boxes
@@ -278,7 +294,7 @@ alignment requires deciding what belongs together.
 hairline dividers. A child earns its own surface only when it's genuinely a
 separate object (a preview, an embed).
 
-**31 · One gap everywhere** — `gap-4`, `p-4`, `space-y-4`: one spacing value
+**32 · One gap everywhere** — `gap-4`, `p-4`, `space-y-4`: one spacing value
 stamped across the page, so a heading sits exactly as far from its own body as
 from the previous, unrelated section. Spacing is how a layout says what belongs
 together — tight inside a group, generous between groups. One value everywhere
@@ -290,7 +306,7 @@ unevenly on purpose.
 
 ## Evolved slop
 
-**32 · Inter everywhere** — Space Grotesk for display, Inter for body; or
+**33 · Inter everywhere** — Space Grotesk for display, Inter for body; or
 Geist, Manrope, Plus Jakarta Sans. Every AI-built page draws from the same five
 faces. They're good typefaces — that's the trap: the model reaches for them
 because everyone did, and every product wearing them dissolves into the same
@@ -302,7 +318,7 @@ in each, be able to say why this one. Landing back on Inter after that is a
 choice; starting there isn't. (A system stack, picked for a reason, is a choice
 too.)
 
-**33 · The "tasteful terminal"** — mono everywhere, a near-black background, one
+**34 · The "tasteful terminal"** — mono everywhere, a near-black background, one
 warm accent, ASCII art: the look of "an AI that read one Vercel blog post." It
 isn't ugly, that's the trap; it's polished enough to have become the new
 default, dodging the design decision exactly like the indigo gradient did, in
@@ -310,3 +326,19 @@ cooler clothing.
 *Fix:* keep monospace for code, not UI chrome; use ASCII art and terminal
 metaphors only where they serve the product. Real taste is a choice you can
 explain, not this season's safest template.
+
+**35 · The editorial dashboard** — an operational UI dressed as a magazine: a
+giant serif "Good evening" greeting, serif numerals in the stat cards, cream
+paper, a tracked-caps kicker over every block. The second-wave uniform:
+scolded out of indigo gradients, the model's new shorthand for "taste" is
+cream + display serif + one deep accent, stamped on any surface regardless of
+its job. The greeting is lifted from a chat assistant's home screen, where the
+greeting is the content; a dashboard's content is its numbers, and display
+serifs with proportional oldstyle figures are prose type — the numerals you
+can't scan down a column. A magazine is read once; a console is scanned all
+day.
+*Fix:* match the type to the job — a scanned interface takes a legible sans
+with tabular lining numerals, hierarchy from scale and space. Display serif
+belongs to genuinely editorial surfaces (docs, essays, a magazine). For
+warmth, one material decision — a paper tint or an ink accent — not the full
+costume.

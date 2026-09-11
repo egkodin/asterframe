@@ -1,6 +1,8 @@
 > **Additional context needed**: quality bar (MVP vs flagship).
 
-Perform a meticulous final pass to catch all the small details that separate good work from great work. The difference between shipped and polished.
+Polish is refinement, never a concealed redesign. Preserve the incumbent visual world, content, behavior, and everything outside scope. If the concept itself is wrong, recommend `redesign` or `bolder` instead of smuggling in a replacement.
+
+Perform a bounded final pass to catch the details that separate good work from great work. Inspect the representative desktop and mobile states together, fix the defects found in one batch, then confirm once and stop; open-ended self-QA is not a quality strategy.
 
 Detector and automated QA output are defect evidence only. A clean script result is never proof that the design is strong; gather browser evidence and inspect the real interaction path.
 
@@ -110,11 +112,12 @@ Every interactive element needs all states:
 
 ### Micro-interactions & Transitions
 
-- **Smooth transitions**: All state changes animated appropriately (150-300ms)
+- **Purposeful transitions**: State changes have motion only when it clarifies feedback, spatial continuity, or the change itself (typically 150-300ms)
 - **Consistent easing**: Use ease-out-quart/quint/expo for natural deceleration. Never bounce or elastic; they feel dated.
 - **No jank**: Smooth animations; use atmospheric blur/filter/mask/shadow effects when they add polish, but bound expensive paint areas and avoid casual layout-property animation
 - **Appropriate motion**: Motion serves purpose, not decoration
 - **Reduced motion**: Respects `prefers-reduced-motion`
+- **Interruptible motion**: User input is never blocked, and rapid interactions settle on the correct semantic state
 
 ### Content & Copy
 
@@ -159,6 +162,8 @@ Every interactive element needs all states:
 - **Readable text**: No text smaller than 14px on mobile
 - **No horizontal scroll**: Content fits viewport
 - **Appropriate reflow**: Content adapts logically
+- **Long content and zoom**: Test localization expansion, text scaling, browser zoom, long identifiers, and missing content
+- **Touch gestures**: Exercise custom drag/swipe behavior when applicable; a resized viewport is not evidence that the gesture works
 
 ### Performance
 
@@ -167,6 +172,7 @@ Every interactive element needs all states:
 - **Smooth interactions**: No lag or jank
 - **Optimized images**: Appropriate formats and sizes
 - **Lazy loading**: Off-screen content loads lazily
+- **will-change discipline**: Use it only for known expensive animations and remove it from resting elements
 
 ### Code Quality
 
@@ -225,10 +231,10 @@ Sweat the details. Zoom in until the alignment is right and the spacing reads as
 Before marking as done:
 
 - **Use it yourself**: Actually interact with the feature.
-- **Test on real devices**: Not just browser DevTools.
-- **Ask someone else to review**: Fresh eyes catch things.
+- **Test the shipped device classes**: Use real devices or the strongest available simulator/emulator evidence, not only a resized viewport.
 - **Compare to design**: Match intended design.
 - **Check all states**: Don't just test happy path.
+- **Confirm once after the batch**: Do not start another polish loop unless the confirmation reveals a real defect.
 - **Treat automation carefully**: Run detector or QA commands when they are available and relevant, fix their defects, but never cite a clean result as proof that the work is polished.
 
 ## Clean Up

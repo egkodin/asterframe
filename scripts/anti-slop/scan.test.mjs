@@ -65,12 +65,14 @@ test("finds multiline patterns and documented runtime signals", () => {
         `.kicker { text-transform: uppercase; letter-spacing: 0.1em; }\n` +
         `.panel { transition: width 200ms ease; }\n` +
         `.steps::before { content: "step one"; }\n` +
-        `.body { font-family: Geist, sans-serif; }\n`,
+        `.body { font-family: Geist, sans-serif; }\n` +
+        `.load { top: 50%; left: 50%; transform: translate(-50%, -50%); animation: spin 1s linear infinite; }\n` +
+        `@keyframes spin { to { transform: rotate(360deg); } }\n`,
     );
 
     const report = reportFor(project);
     assert.equal(finding(report, "01")?.hits[0].line, 1);
-    for (const id of ["02", "06", "10", "14", "26", "29", "32"]) {
+    for (const id of ["02", "06", "10", "14", "26", "27", "30", "33"]) {
       assert.ok(finding(report, id), `expected tell ${id} to be detected`);
     }
   });
@@ -95,6 +97,89 @@ test("skips the installed skill's own files", () => {
     });
     assert.equal(result.status, 0, result.stderr);
     assert.equal(JSON.parse(result.stdout).filesScanned, 0);
+  });
+});
+
+test("scans PHP and Twig templates", () => {
+  withTempProject((project) => {
+    writeFileSync(
+      join(project, "header.php"),
+      `<h1 class="bg-clip-text text-transparent"><?php echo esc_html($title); ?></h1>\n`,
+    );
+    writeFileSync(
+      join(project, "card.twig"),
+      `<div class="rounded-full backdrop-blur">{{ title }}</div>\n`,
+    );
+
+    const report = reportFor(project);
+    assert.equal(report.filesScanned, 2);
+    assert.ok(finding(report, "02"), "expected tell 02 in the PHP template");
+    assert.ok(finding(report, "19"), "expected tell 19 in the Twig template");
+  });
+});
+
+test("deslop-ignore directives suppress hits", () => {
+  withTempProject((project) => {
+    writeFileSync(
+      join(project, "styles.css"),
+      `.a { background: radial-gradient(circle, red, blue); } /* deslop-ignore */\n` +
+        `/* deslop-ignore-next-line 06 */\n` +
+        `.b { background: radial-gradient(circle, red, blue); }\n` +
+        `/* deslop-ignore-next-line 01 */\n` +
+        `.c { background: radial-gradient(circle, red, blue); }\n`,
+    );
+    writeFileSync(
+      join(project, "ignored.css"),
+      `/* deslop-ignore-file */\n.x { backdrop-filter: blur(10px); }\n`,
+    );
+
+    const report = reportFor(project);
+    const atmosphere = finding(report, "06");
+    assert.equal(atmosphere?.hits.length, 1); // only .c: its directive names another tell
+    assert.equal(atmosphere.hits[0].line, 5);
+    assert.equal(finding(report, "19"), undefined);
+  });
+});
+
+test("--only, --skip and --exclude narrow the scan", () => {
+  withTempProject((project) => {
+    writeFileSync(
+      join(project, "a.css"),
+      `.x { background: radial-gradient(red, blue); backdrop-filter: blur(4px); }\n`,
+    );
+    mkdirSync(join(project, "legacy"));
+    writeFileSync(join(project, "legacy", "b.css"), `.y { background: radial-gradient(red, blue); }\n`);
+
+    const only = scan(project, "--json", "--only=6");
+    assert.equal(only.status, 0, only.stderr);
+    assert.deepEqual(JSON.parse(only.stdout).findings.map((f) => f.id), ["06"]);
+
+    const skip = scan(project, "--json", "--skip=06");
+    assert.equal(skip.status, 0, skip.stderr);
+    const skipReport = JSON.parse(skip.stdout);
+    assert.equal(skipReport.findings.some((f) => f.id === "06"), false);
+    assert.ok(skipReport.findings.some((f) => f.id === "19"));
+
+    const excluded = scan(project, "--json", "--exclude=legacy");
+    assert.equal(excluded.status, 0, excluded.stderr);
+    assert.equal(JSON.parse(excluded.stdout).filesScanned, 1);
+  });
+});
+
+test("--rules loads extra tells (Russian example rules)", () => {
+  withTempProject((project) => {
+    writeFileSync(join(project, "copy.md"), `Это не просто сканер — это ваш новый помощник.\n`);
+
+    const rulesPath = join(dirname(scriptPath), "rules.ru.mjs");
+    const result = scan(project, "--json", `--rules=${rulesPath}`);
+    assert.equal(result.status, 0, result.stderr);
+    assert.ok(finding(JSON.parse(result.stdout), "ru-14"));
+
+    const badRules = join(project, "bad-rules.mjs");
+    writeFileSync(badRules, `export default {};\n`);
+    const bad = scan(project, "--json", `--rules=${badRules}`);
+    assert.notEqual(bad.status, 0);
+    assert.match(bad.stderr, /must export an array/);
   });
 });
 

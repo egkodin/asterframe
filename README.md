@@ -9,7 +9,7 @@ One skill, 27 commands, 44 deterministic interface rules, live browser iteration
 
 </div>
 
-> **Quick start:** run `npx skills add https://github.com/egkodin/asterframe`, reload your agent harness, then run `/asterframe init` from your project.
+> **Quick start:** run `npx skills add https://github.com/egkodin/asterframe`, reload your agent harness, then invoke Asterframe for your page or component. Use `init` only when you want project documentation.
 
 ## Why Asterframe?
 
@@ -21,6 +21,7 @@ Asterframe gives the agent a complete design operating system instead of a loose
 - **One routed workflow.** Creation, redesign, critique, audit, anti-slop, motion, hardening, and system work share one source of truth.
 - **Preservation-aware redesign.** Existing behavior, architecture, accessibility semantics, analytics hooks, and brand commitments are treated as constraints.
 - **Deterministic checks.** Forty-four rules detect recurring AI-generated design patterns and general quality problems without requiring an API key.
+- **Scoped specialist guidance.** The concern map selects relevant installed frontend skills, including the adapted anti-slop guidance, without starting a second design workflow or requiring every optional tool.
 - **Local design intelligence.** The refreshed catalog covers 79 searchable styles, 192 palettes, 74 font pairings, 192 product types, 119 UX guidelines, 25 chart types, curated icons, and 22 stack catalogs.
 - **Live browser iteration.** Selected elements can be explored as visual variants in a running application before changes are accepted.
 
@@ -34,13 +35,15 @@ Asterframe installs as a single skill and exposes one command surface:
 /asterframe <command> <target>
 ```
 
-Start a new project with:
+When you want persistent product and design documentation, run:
 
 ```text
 /asterframe init
 ```
 
-`init` gathers product and design context so later commands understand the audience, surface type, brand commitments, accessibility constraints, visual direction, and implementation environment.
+`init` gathers product and design context so later commands understand the audience, surface type, brand commitments, accessibility constraints, visual direction, and implementation environment. It is optional: missing `PRODUCT.md` does not block scoped work, and an existing `DESIGN.md` is still loaded.
+
+In Codex, Asterframe is explicitly invoked (`$asterframe`); its invocation policy prevents automatic selection. Use one primary design workflow for a surface. Other harnesses may expose the slash-command form shown here.
 
 ### 27 commands
 
@@ -145,11 +148,13 @@ npx skills add egkodin/asterframe --list
 
 During an interactive install, select the agent harnesses you use. The CLI supports project and global installation for Codex, Claude Code, Cursor, and other Agent Skills-compatible tools.
 
-After installation, reload the agent harness and run:
+After installation, reload the agent harness and invoke the relevant command:
 
 ```text
-/asterframe init
+/asterframe craft the requested page or component
 ```
+
+Run `/asterframe init` separately when creating product/design documentation is part of the request.
 
 ### Manual installation
 
@@ -196,7 +201,9 @@ Asterframe routes each request to the narrowest appropriate workflow instead of 
 3. **Set the design dials.** Visual variance, motion intensity, and information density are inferred from the brief and existing product.
 4. **Preserve what matters.** Existing behavior, routes, semantics, analytics, public APIs, and brand commitments remain stable unless change is authorized.
 5. **Apply the focused workflow.** Build, redesign, audit, de-slop, animate, harden, or document using the corresponding reference module.
-6. **Validate the result.** Use deterministic scans, source inspection, browser evidence, responsive checks, and production-quality review.
+6. **Validate the result.** Use deterministic scans, source inspection, browser evidence, responsive checks, and production-quality review. Repeat affected checks after concrete fixes and stop when applicable acceptance criteria pass.
+
+For the specialist routing and adapted anti-slop principles, see [the frontend concern map](references/frontend-skills.md) and [purpose and completeness](references/anti-slop/craft.md). The adaptation checks real content and action effects, preserves justified visual techniques, and covers copy, comments, measured contrast, and intermediate-width reflow. Optional Icons8/Ouch work preserves the shared `icons8.json` version 2 asset lock and selected asset entitlement/attribution.
 
 ## Local UI/UX intelligence
 
@@ -237,7 +244,7 @@ The repository is tested with Node.js 22 and Python 3.13.
 npm run validate
 ```
 
-This checks JavaScript syntax, runs the anti-slop scanner tests, compiles the Python utilities, validates the embedded UI/UX data contract, validates the command manifest, and confirms that retired project names are absent.
+This checks JavaScript syntax, runs the anti-slop scanner and context/config tests, compiles the Python utilities, validates the embedded UI/UX data contract, and checks the command manifest, local imports, and Markdown links.
 
 ## Project status
 

@@ -11,6 +11,7 @@ Asterframe is a materially reorganized integration assembled from the user-provi
 - `redesign-existing-projects` — incorporated as the audit-first `redesign` workflow.
 - `taste-skill` — distilled into context inference, design dials, design-system selection, anti-default discipline, and preflight rules.
 - `ui-ux-pro-max` — retained as the local searchable data and design-system utility under `tools/uiux/`.
+- `miqdadbadjuber/anti-slop` — adapted from the core and five focused skills into purpose-led composition, truthful content, working interactions, copy/comment hygiene, and responsive/accessibility checks. Revision and adaptation boundaries are recorded in `SOURCE_MAP.md`; the upstream MIT notice is preserved in [`LICENSES/antislop-MIT.txt`](LICENSES/antislop-MIT.txt). The optional contrast checker remains an external installed tool; its code is not redistributed here.
 
 The embedded UI/UX catalog and runtime were refreshed from
 `nextlevelbuilder/ui-ux-pro-max-skill` at the revision recorded in

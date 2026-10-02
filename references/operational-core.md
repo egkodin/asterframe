@@ -3,13 +3,15 @@ name: asterframe
 description: Use when the user wants to design, redesign, shape, critique, audit, polish, clarify, distill, harden, optimize, adapt, animate, colorize, extract, or otherwise improve a frontend interface. Covers websites, landing pages, dashboards, product UI, app shells, components, forms, settings, onboarding, and empty states. Handles UX review, visual hierarchy, information architecture, cognitive load, accessibility, performance, responsive behavior, theming, anti-patterns, typography, fonts, spacing, layout, alignment, color, motion, micro-interactions, UX copy, error states, edge cases, i18n, and reusable design systems or tokens. Also use for bland designs that need to become bolder or more delightful, loud designs that should become quieter, live browser iteration on UI elements, or ambitious visual effects that should feel technically extraordinary. Not for backend-only or non-UI tasks.
 ---
 
+> Historical command/runtime snapshot. The current SKILL.md governs routing, scope, authority, and completion. Missing PRODUCT.md never blocks scoped work; init and management actions require a matching request. Aesthetic examples here are contextual, not blanket requirements.
+
 Designs and iterates production-grade frontend interfaces. Real working code, committed design choices, exceptional craft.
 
 ## Setup
 
 You MUST do these steps before proceeding:
 
-1. Run `node "${ASTERFRAME_SKILL_DIR}/scripts/context.mjs"` once per session. If you've already seen its output in this conversation, do not re-run it. The script either prints the project's PRODUCT.md (and DESIGN.md when present) as a markdown block, or tells you it's missing. Follow whatever it prints. **If it reports `NO_PRODUCT_MD`, stop and follow `references/init.md` before doing anything else.** If the output ends with an `UPDATE_AVAILABLE` directive, follow it (ask the user once about updating, then continue). It never blocks the current task.
+1. Run `node "${ASTERFRAME_SKILL_DIR}/scripts/context.mjs"` once per session. If you've already seen its output in this conversation, do not re-run it. The script either prints the project's PRODUCT.md (and DESIGN.md when present) as a markdown block, or tells you it's missing. Follow whatever it prints. **If it reports `NO_PRODUCT_MD`, continue from the brief, relevant code, and available DESIGN.md; use init only when requested or documentation is in scope.** If the output ends with an `UPDATE_AVAILABLE` directive, follow it (ask the user once about updating, then continue). It never blocks the current task.
 2. If the user invoked a sub-command (`craft`, `shape`, `audit`, `polish`, ...), you MUST read `references/<command>.md` next. Non-optional. The reference defines the command's flow; without it you will skip steps the user expects.
 3. Familiarize yourself with any existing design system, conventions, and components in the code. Read at least one project file (CSS / tokens / theme / a representative component or page). **Required even when you've loaded a sub-command reference in step 2.** Don't reinvent the wheel; use what's there when it works, branch out when the UX wins.
 4. Read the matching register reference. **This is non-optional; skipping it produces generic output.** If the project is marketing, a landing page, a campaign, long-form content, or a portfolio (design IS the product), read `references/brand.md`. If it is app UI, admin, a dashboard, or a tool (design SERVES the product), read `references/product.md`. Pick by first match: (1) task cue ("landing page" vs "dashboard"); (2) surface in focus (the page, file, or route being worked on); (3) `register` field in PRODUCT.md.
@@ -135,7 +137,7 @@ Plus three management commands: `pin <command>`, `unpin <command>`, and `hooks <
 
 ### Routing rules
 
-1. **No argument**: the user is asking "what should I do?" Make the menu context-aware instead of static. Setup has already run `context.mjs`; if that reported `NO_PRODUCT_MD` you are already in init (setup), so finish that and skip this. Otherwise run `node "${ASTERFRAME_SKILL_DIR}/scripts/context-signals.mjs"` once and read its JSON, then lead with the **2-3 highest-value next commands**, each with a one-line reason pulled from the signals, followed by the full menu (the table above, grouped by category). **Never auto-run a command; the recommendation is a suggestion the user confirms.**
+1. **No argument**: the user is asking "what should I do?" Make the menu context-aware instead of static. Setup has already run `context.mjs`; missing PRODUCT.md is informational. Run `node "${ASTERFRAME_SKILL_DIR}/scripts/context-signals.mjs"` once and read its JSON, then lead with the **2-3 highest-value next commands**, each with a one-line reason pulled from the signals, followed by the full menu (the table above, grouped by category). **Never auto-run a command; the recommendation is a suggestion the user confirms.**
 
    Reason over the signals; there is no score to obey:
    - `setup.hasDesign` false while `setup.hasCode` true → `document` (capture the visual system).

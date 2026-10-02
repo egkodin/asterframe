@@ -39,11 +39,11 @@ The principles, held on every fix you make:
 
 ## Workflow
 
-Follow these steps in order. Do not mass-edit before the user has seen the report.
+Use the scope and authority from the current Asterframe entrypoint. Read [purpose and completeness](anti-slop/craft.md) for the compatible anti-slop integration. A review stays read-only; an authorized cleanup may triage, fix, and verify directly without requesting the same permission again. Broad or destructive changes beyond that scope require a concrete reviewable proposal.
 
 ### 1. Scope
-Confirm what to scan. Default to the app/site source (skip `node_modules`,
-`dist`, `build`, `.git`, `vendor`, lockfiles, minified files). Ask if the
+Resolve the requested scope from the brief. Default to the affected app/site source (skip `node_modules`,
+`dist`, `build`, `.git`, `vendor`, lockfiles, minified files). Ask only if the target cannot be determined safely when the
 project mixes several apps.
 
 ### 2. Scan
@@ -77,7 +77,7 @@ machine-made, and `references/anti-slop/detection.md` for the exact patterns and
 common false positives.
 
 ### 4. Report
-Before changing anything, give the user a grouped summary: each tell, the
+For review-only work, give a grouped summary; for authorized fixes, report the confirmed changes and exceptions: each tell, the
 `file:line` hits you confirmed, one sentence on why, and the proposed fix.
 Mirror the format:
 
@@ -89,23 +89,23 @@ slop  copy.md:1         "not just X — it's Y"         → say the specific thi
 → 4 groups, 11 hits.
 ```
 
-Then ask which groups to apply, or whether to proceed on all.
+Ask which groups to apply only when authority or scope is still missing. Existing authorization for the affected fixes is sufficient.
 
 ### 5. Fix
 Apply the minimal change that removes the tell while preserving intent and
 function. Use `references/anti-slop/fixes.md` for the before→after pattern per tell.
 
 - Prefer editing shared tokens/components over touching every call site.
-- Never invent new brand colors; if a palette must change, propose neutrals +
-  the project's existing accent and let the user confirm.
+- Never invent new brand colors; if a palette must change, reuse the project's existing tokens and accent. Request a decision only
+  when changing an explicit brand commitment is outside the authorized scope.
 - Keep copy meaning; make it specific, don't just delete it.
-- Re-run the scanner after fixing to confirm the count dropped, and note any
-  hits you intentionally left (with the reason).
+- Re-run relevant checks after fixing and note intentional remaining hits.
+  A lower scanner count is not a quality gate; verify the actual effect.
 
 ## Guardrails
 
 - **Respect authorship.** Treat unfamiliar files and deliberate flourishes as
-  someone's choice. When unsure whether something is slop, ask — don't strip it.
+  someone's choice. When evidence is insufficient, preserve it; ask only if that uncertainty blocks the requested change.
 - **Small, reviewable diffs.** Never reformat unrelated code. Never run
   `git add -A`; stage explicit files only, and leave others' work-in-progress
   alone.

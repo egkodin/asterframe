@@ -11,12 +11,39 @@
 | Context inference and dials | taste-skill + ui-ux design-system generator | top-level `SKILL.md`, `references/taste.md`, `references/system.md` |
 | Legacy command specification | impeccable | `references/operational-core.md`, command references, `scripts/`, `agents/` |
 
-## Refresh record
+## Installed frontend integration — 2026-10-02
 
-This integration was refreshed on 2026-09-11. The Asterframe upstream itself is
-still at `egkodin/asterframe` `2644a30d7920c68f933202994c7e0ca0997bcf3a`; the
-source refresh below is therefore an explicit compatibility merge, not a new
-upstream Asterframe release.
+The current `SKILL.md` and `references/frontend-skills.md` integrate the available frontend specialists by concern, including the 39 focused UI specialists, explicit design alternatives, Icons8/Ouch, platform branches, creative assets, and implementation/verification support. Resolve their current installed entrypoints from the session catalog; do not pin runtime routing to plugin cache versions or assume all optional tools are available.
+
+Changes in this compatibility merge:
+
+- one explicit Asterframe workflow; Impeccable remains the default outside explicit invocation;
+- current specialist guidance by affected concern, with native controls and existing systems first;
+- contextual resolution of conflicting aesthetic recipes; functional and accessibility requirements retain priority;
+- non-blocking missing PRODUCT.md, including DESIGN.md-only context; scoped work does not trigger init;
+- current Icons8/Ouch shared `icons8.json` version 2 lock, asset truth, dimensions, attribution, and entitlement boundaries;
+- state, focus, navigation, recovery, responsive input, and measured-performance verification;
+- repeated affected checks after fixes, stopping when applicable acceptance criteria pass.
+
+This is a local skill improvement based on installed sources, not a claim that every source is the newest upstream release. Existing embedded source/license files remain historical fallbacks, not nested standalone skills. The operational-core snapshot is subordinate to the current entrypoint's routing, scope, authority, and completion rules.
+
+## Anti-slop compatibility merge — 2026-10-02
+
+Source: [miqdadbadjuber/anti-slop](https://github.com/miqdadbadjuber/anti-slop/tree/91f12ec67e9de6043cfd93b846404986ba73c3f4), revision `91f12ec67e9de6043cfd93b846404986ba73c3f4`, release marker `3.2.20`. All six upstream skill entrypoints matched the installed antislop entrypoints when checked. MIT attribution is preserved in `LICENSES/antislop-MIT.txt`.
+
+Adapted in `references/anti-slop/craft.md` and the main entrypoint: purpose versus technique, content-led identity and rhythm, dashboard decisions and honest states, concrete copy with preserved author voice, meaningful comments, content-driven intermediate-width reflow, and verified action effects. The existing scanner, commands, runtime, and explicit-only invocation policy are retained. The frontend map now includes the six antislop concerns, with the adaptation as the Asterframe authority.
+
+Deliberately excluded: another install/mode wizard, automatic entry-file changes, compulsory DESIGN.md, forced dual themes, hard punctuation/palette/font/layout bans, script-edit bans, arbitrary comment length caps, and mandatory full-site audits or extra dial systems. These conflict with user authorization, preservation, or contextual frontend judgment. No source instructions are installed verbatim as a second router.
+
+Contrast guidance corrects the source's `18px+` large-text shorthand and rounded comparison instruction using [W3C SC 1.4.3](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html): 18pt regular or 14pt bold, with unrounded threshold comparison. The existing installed antislop-human checker is an optional tool for opaque hex pairs; no checker code or new dependency is copied into Asterframe.
+
+## Historical refresh record — 2026-09-11
+
+The 2026-09-11 refresh recorded Asterframe upstream
+`egkodin/asterframe` `2644a30d7920c68f933202994c7e0ca0997bcf3a`; the
+source refresh below was an explicit compatibility merge, not a new
+upstream Asterframe release. These revisions are historical evidence, not a
+2026-10-02 upstream-version check.
 
 | Integrated source | Path used | Resolved `main` revision | Refresh result |
 |---|---|---|---|

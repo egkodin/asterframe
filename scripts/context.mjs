@@ -1,8 +1,7 @@
 /**
  * Context loader: prints PRODUCT.md (and DESIGN.md if present) as one
- * markdown block on stdout, or exits with empty stdout when no PRODUCT.md
- * is found anywhere. The skill keys off "empty stdout" to branch into the
- * init flow.
+ * markdown block on stdout. Missing PRODUCT.md is informational; available
+ * DESIGN.md is still printed so scoped work can proceed without init.
  *
  * Path resolution (first match wins):
  *   1. cwd, if PRODUCT.md or DESIGN.md is there
@@ -240,10 +239,11 @@ async function cli() {
     // Direct stdout message instead of relying on empty output as a signal
     // — cheap models miss the empty case more often than the explicit one.
     const parts = [
-      'NO_PRODUCT_MD: This project has no PRODUCT.md yet. ' +
-      'Stop the current task, load references/init.md, and follow its ' +
-      'instructions to write PRODUCT.md before resuming.',
+      'NO_PRODUCT_MD: No readable PRODUCT.md found. Continue the current task ' +
+      'using the brief, relevant code, and available DESIGN.md. ' +
+      'Run init only when requested or when product documentation is in scope.',
     ];
+    if (ctx.hasDesign) parts.push(`# DESIGN.md\n\n${ctx.design.trim()}`);
     if (updateDirective) parts.push(updateDirective);
     process.stdout.write(parts.join('\n\n---\n\n') + '\n');
     process.exit(0);

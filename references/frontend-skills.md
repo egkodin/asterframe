@@ -9,6 +9,7 @@ Asterframe is the explicitly chosen workflow here. Impeccable remains the defaul
 | Asterframe intent | Read the relevant concerns below |
 |---|---|
 | `craft`, `shape`, `redesign` | Direction; affected layout, interaction, platform; truth and assets if needed |
+| `direct`, `explore` | Direction, genre packs, motion, truth and assets; the bundled taste toolkit supplies the draw and the gate |
 | `system`, `document`, `extract` | Direction and tokens; extraction only when a source system must be captured |
 | `bolder`, `quieter`, `distill`, `polish`, `anti-slop` | Direction and the actual visual defect; keep functional states intact |
 | `typeset`, `colorize`, `layout` | Tokens and layout; responsive/accessibility criteria affected by the edit |
@@ -31,7 +32,9 @@ Asterframe is the explicitly chosen workflow here. Impeccable remains the defaul
 | `apple-design` | Interruptible gestures, physical continuity, optical type | Keep input responsive during transitions; preserve reduced-motion and keyboard paths |
 | `appllama-app-design-skill` | Expo / React Native screens and native navigation | Apply platform conventions to native work; do not import a mobile stack into a web page |
 | `industrial-brutalist-ui` | An explicitly chosen brutalist/mechanical register | A style request must still preserve legibility, semantics, and task completion |
-| `gpt-taste`, `design-taste-frontend` (installed folder may be `taste-skill`) | Explicitly requested expressive landing/portfolio direction | Do not auto-invoke these alternatives; themes, GSAP, imagery, and bento layouts remain conditional |
+| `gpt-taste`, `design-taste-frontend` (installed folder may be `taste-skill`) | Explicitly requested expressive landing/portfolio direction | Asterframe bundles the v2 runtime as `direct` (`tools/taste/`); do not run the installed skill as a second workflow on the same surface |
+| `design-taste` genre and craft skills (madebymustafa) | Named genre identities, landing structure, GSAP craft | Use the bundled [genre packs](genres.md) and [motion library](motion-library.md); one pack per surface |
+| `better-design` (skill + MCP) | Product design-system presets, principle and review rules | Use [system presets](genres.md) and its MCP tools only when connected; never claim an MCP review that did not run |
 | `dembrandt` | Explicitly requested extraction workflow | Do not auto-start it as a second router; `extract-design` below supplies a narrower concern |
 
 ## Brand, tokens, and component families
@@ -106,6 +109,8 @@ Prefer semantic HTML, native controls, CSS, and existing accessible primitives b
 | `micro-interactions` | Immediate feedback and small state changes | Keep targets stable, feedback non-blocking, and repeated actions quiet |
 | `motion-and-storytelling` | Spatial explanation and rare storytelling moments | Motion earns attention by improving comprehension; no universal reveal or cinematic requirement |
 | `apple-design` | Pointer continuity, interruptible springs, sheets/drag | Never lock input during a transition; preserve velocity where appropriate and provide reduced-motion behavior |
+| bundled [motion library](motion-library.md) | Exact tokens, transition and text-effect values, GSAP architecture | Values only after the motion policy has approved the move |
+| bundled [effects catalog](effects-catalog.md) | motion-primitives, ui-layouts, Cursify, Canvas UI, Paper Shaders | Pass the five-question gate; respect each licence; install into the user's project, never vendor |
 
 Animated icons/illustrations follow the same frequency and attention budget. Prefer CSS for simple effects and an already-installed motion library when it genuinely fits. A video-composition GSAP reference does not require GSAP in the product.
 

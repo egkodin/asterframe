@@ -2,6 +2,8 @@
 
 Add motion that conveys state, gives feedback, and clarifies hierarchy. Cut motion that exists only for decoration. Animation fatigue is a real cost; spend the budget on the moments that need it.
 
+Exact durations, easings, transition recipes, text effects, and GSAP architecture: [motion library](motion-library.md). Ready-made components and shaders: [effects catalog](effects-catalog.md). Brand pages built with `direct` also follow its motion layer (step 9).
+
 ---
 
 ## Register

@@ -59,6 +59,7 @@ Refinement preserves the incumbent visual world, content, behavior, and out-of-s
    - **Brand register**: landing pages, campaigns, portfolios, editorial, marketing, design-led experiences. Read `references/brand.md` and `references/frontend-direction.md`.
    - **Product register**: dashboards, apps, admin tools, settings, forms, workflows, data-heavy UI. Read `references/product.md`; load `references/system.md` only when local design-system intelligence adds value.
    - Mixed surfaces use the register of the surface currently being changed, not the company category.
+   - When the brief names an identity (editorial, brutalist, quiet luxury, dark tech, playful, riso print, Japanese minimal, neo-brutalism, corporate trust, cinematic) or asks for a product system preset, read the matching section of `references/genres.md` only.
 6. For a command invocation, read its command reference before acting. This is mandatory.
 7. When palette derivation adds value, use the existing brand colors, `algorithmic-color-palette`, or `node "${ASTERFRAME_SKILL_DIR}/scripts/palette.mjs"`. No random palette, extra theme, image generation, or animation library is required by default.
 
@@ -69,6 +70,8 @@ Use the first clear match. Do not combine modes merely because they are availabl
 | Intent | Mode / command | Required reference |
 |---|---|---|
 | Build a feature or page end-to-end | `craft [target]` | `references/craft.md` |
+| Art-direct a landing page, marketing site, portfolio, or product page | `direct [target]` | `references/direct.md` |
+| Compare divergent options before committing | `explore [target]` | `references/explore.md` |
 | Resolve UX/UI before code | `shape [target]` | `references/shape.md` |
 | Upgrade an existing interface while preserving behavior | `redesign [target]` | `references/redesign.md` |
 | Remove templated AI visual/copy patterns | `anti-slop [target]` | `references/anti-slop.md` |
@@ -169,7 +172,15 @@ Use the existing coherent component/design system first, then native platform co
 
 Examples: Material for Material-native products, Fluent for Microsoft ecosystems, Carbon for IBM-style enterprise analytics, Polaris for Shopify surfaces, Atlaskit for Atlassian-style products, Primer for GitHub ecosystems, GOV.UK/USWDS for matching public services, Radix/shadcn for owned accessible primitives.
 
-Aesthetic families such as editorial, brutalist, bento, glass, kinetic typography, or dark-tech are not official systems. Implement them honestly with the existing stack and label approximations as approximations.
+Aesthetic families such as editorial, brutalist, bento, glass, kinetic typography, or dark-tech are not official systems. Implement them honestly with the existing stack and label approximations as approximations. `references/genres.md` holds ten fixed genre identities and a catalog of shadcn-based product presets; one pack per surface, never over an existing brand without authority.
+
+For brand-register pages without a fixed direction, the bundled taste toolkit deals researched directions from a library of 247 studied sites (directions, hero and section blueprints, type systems, palettes):
+
+```bash
+node "${ASTERFRAME_SKILL_DIR}/tools/taste/scripts/draw.mjs" --sector <sector> --brief "<one line>" --sections <roles> --options 3
+```
+
+Follow `references/direct.md` for the full loop; the draw never overrides a brand or design system.
 
 Use local intelligence when it adds evidence:
 
@@ -221,6 +232,15 @@ node "${ASTERFRAME_SKILL_DIR}/scripts/anti-slop/scan.mjs" <project-or-source-dir
 
 Follow `references/anti-slop.md`. Scan results require human design judgment; false positives are expected.
 
+For brand pages, the measured gate is stricter:
+
+```bash
+node "${ASTERFRAME_SKILL_DIR}/tools/taste/scripts/lint.mjs" <source>
+node "${ASTERFRAME_SKILL_DIR}/tools/taste/scripts/inspect.mjs" <url-or-html> [--allow rule,rule]
+```
+
+The inspector renders at 1440/768/390 in an already-installed Chromium-family browser and fails integrity defects (overflow, contrast, clipped or covered text, broken images, tiny text) as well as house-style tells. **On brand-register surfaces the taste-skill v2 house rules win over genre packs and other aesthetic sources**: no eyebrows, no monospace outside code, no index numbering, no hairlines or outlined boxes, no gradients, no resting shadows, no cream/terracotta/violet palettes, no styled accent words. Only a brand asset or an existing design system that requires a device may be allowed, with the reason reported; integrity rules are never allowed. Product-register surfaces keep their own conventions.
+
 ## Motion policy: restraint with exactness
 
 Motion must serve one named purpose: feedback, spatial continuity, state indication, preventing a jarring change, explanation, or rare delight.
@@ -242,6 +262,10 @@ Typical budgets:
 
 Prefer transform and opacity for routine UI. Other properties are allowed only when they materially improve the effect and remain smooth. Animations must be interruptible, non-blocking, and have a reduced-motion alternative. Do not hide essential content until an animation fires.
 
+A complete page must survive the **still-frame test**: with script off or reduced motion on, nothing essential stays hidden and the composition still carries the design. Elements are visible in CSS and hidden only by the motion layer when it is active.
+
+Exact values live in `references/motion-library.md` (duration and easing tokens, a compact motion-spec notation, nine UI transition recipes, 24 text effects, GSAP pin/scrub/Lenis architecture). Ready-made components, shaders, cursors, and canvas effects are indexed in `references/effects-catalog.md` with licence boundaries and a five-question selection gate; availability never justifies an effect. In Motion (Framer Motion) projects, wrap the app in `<MotionConfig reducedMotion="user">` and guard opacity/color loops separately.
+
 `motion-scout` is strictly read-only. It must report rejected candidates as well as surviving opportunities. `animate` may implement motion.
 
 ## Assets and product truth
@@ -249,6 +273,8 @@ Prefer transform and opacity for routine UI. Other properties are allowed only w
 Reuse real project assets and the existing icon family. For Icons8 icons or Ouch illustrations, load `icons8` or `ouch` only for that asset task. Both now share the project `icons8.json` version 2 lock: icons owns `icons`, Ouch owns `illustrations`; preserve `tokens` and unknown fields. Preserve legacy locks and values during migration; resolve conflicting locks before changing a chosen family.
 
 Pick concepts and coverage before style, preview the complete set on the actual background, and fetch final assets only after selection. IDs, dimensions, formats, and entitlement must come from actual responses. Do not ship watermarked previews or expiring original URLs as permanent production assets; respect the environment's remote-media policy. Preserve required attribution and budget; authentication does not imply every paid format is available. Missing assets/tools should be reported with a usable fallback from the existing project, never invented IDs or silent purchases.
+
+When a brand page has no imagery of its own, real pictures of the subject's world from open collections (Openverse, Wikimedia Commons, the Art Institute of Chicago, the Met; commercial-use licences by default) are preferred over stock or decorative SVG: `node "${ASTERFRAME_SKILL_DIR}/tools/taste/scripts/assets.mjs" "<query>"`, then `--get <ref>` and `--credits`. Never present a found picture as the client's own product, place, or people; credit every one on the page.
 
 Use semantic icon metaphors, consistent optical weight, explicit media dimensions, meaningful alternative text (or decorative treatment), and actual product screenshots/content. Align related illustrations by visible baseline/mass without stretching or clipping. Animated assets follow the same motion policy as UI. Asset generation, launch videos, and publication require a matching task, not merely an available skill.
 
@@ -361,6 +387,14 @@ Keep reporting proportional to the task.
 - Fixes made, not merely renamed.
 - Final category-reflex verdict.
 
+### Direct
+
+Follow `references/direct.md` §10: direction and seed, redraws, idea sentence and live thing, critique scores, credited pictures, allowed rules with reasons, sample content to confirm.
+
+### Explore
+
+Variant files, each thesis and position on the decision axis, strongest point and main risk, a recommendation, and what was not rendered.
+
 ### Motion scout
 
 Follow `references/motion-scout.md`: surviving opportunities with exact timing/easing/properties, rejected candidates and gate reasons, then one concise verdict.
@@ -373,7 +407,7 @@ Existing Asterframe commands remain available:
 
 Unified commands added here:
 
-`redesign`, `anti-slop`, `motion-scout`, `system`.
+`redesign`, `anti-slop`, `motion-scout`, `system`, `direct`, `explore`.
 
 Management commands:
 

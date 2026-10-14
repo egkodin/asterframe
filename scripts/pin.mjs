@@ -32,7 +32,7 @@ const VALID_COMMANDS = [
   'polish', 'bolder', 'quieter', 'distill', 'harden', 'onboard', 'live',
   'animate', 'colorize', 'typeset', 'layout', 'delight', 'overdrive',
   'clarify', 'adapt', 'optimize',
-  'redesign', 'anti-slop', 'motion-scout', 'system',
+  'redesign', 'anti-slop', 'motion-scout', 'system', 'direct', 'explore',
 ];
 
 // Marker to identify pinned skills (so unpin doesn't delete user skills)

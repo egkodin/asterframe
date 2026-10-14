@@ -9,11 +9,12 @@ const requiredCommands = [
   'craft', 'shape', 'init', 'document', 'extract', 'critique', 'audit', 'polish',
   'bolder', 'quieter', 'distill', 'harden', 'onboard', 'animate', 'colorize',
   'typeset', 'layout', 'delight', 'overdrive', 'clarify', 'adapt', 'optimize',
-  'live', 'redesign', 'anti-slop', 'motion-scout', 'system',
+  'live', 'redesign', 'anti-slop', 'motion-scout', 'system', 'direct', 'explore',
 ];
 const requiredReferences = [
   ...requiredCommands,
   'brand', 'product', 'frontend-direction', 'taste', 'operational-core', 'hooks',
+  'genres', 'motion-library', 'effects-catalog',
 ];
 
 function requirePath(path, type = 'file') {
@@ -37,8 +38,10 @@ function filesUnder(directory) {
   'SKILL.md', 'agents/openai.yaml', 'scripts/context.mjs', 'scripts/detect.mjs',
   'scripts/anti-slop/scan.mjs', 'scripts/anti-slop/scan.test.mjs',
   'tools/uiux/scripts/search.py', 'LICENSES/frontend-design-Apache-2.0.txt',
+  'tools/taste/scripts/draw.mjs', 'tools/taste/scripts/lint.mjs', 'tools/taste/scripts/inspect.mjs',
+  'tools/taste/scripts/assets.mjs', 'LICENSES/taste-skill-MIT.txt',
 ].forEach(path => requirePath(path));
-['references', 'scripts', 'agents', 'tools/uiux/data', 'tools/uiux/scripts'].forEach(path => requirePath(path, 'directory'));
+['references', 'scripts', 'agents', 'tools/uiux/data', 'tools/uiux/scripts', 'tools/taste/library', 'tools/taste/references'].forEach(path => requirePath(path, 'directory'));
 requiredReferences.forEach(name => requirePath(`references/${name}.md`));
 
 const skill = readFileSync(join(root, 'SKILL.md'), 'utf8');

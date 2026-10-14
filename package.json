@@ -8,7 +8,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "check:js": "find scripts -type f \\( -name '*.mjs' -o -name '*.js' \\) -print0 | xargs -0 -n1 node --check",
+    "check:js": "find scripts tools/taste/scripts tools/taste/assets -type f \\( -name '*.mjs' -o -name '*.js' \\) -print0 | xargs -0 -n1 node --check",
     "check:python": "python3 -m compileall -q tools/uiux/scripts",
     "check:uiux": "python3 tools/uiux/scripts/validate_data.py",
     "check:manifest": "node scripts/validate-repository.mjs",

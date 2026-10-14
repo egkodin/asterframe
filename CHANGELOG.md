@@ -2,6 +2,15 @@
 
 All notable changes to Asterframe will be documented in this file.
 
+## Unreleased — design-source merge 2026-10-14
+
+- Added `direct`: art direction for public-facing pages backed by the bundled taste-skill v2 runtime (`tools/taste/`): subject inventory, dealt directions from 247 studied sites, idea and live-thing gates, open-collection imagery with credits, a real-browser inspector at 1440/768/390, screenshot critique, and a required motion layer.
+- Added `explore`: two to five divergent, standalone HTML variations staged as structure → theme → motion spec → mockup.
+- Added `references/genres.md` (ten genre identities, 31 product presets), `references/motion-library.md` (tokens, spec notation, transition recipes, 24 text effects, GSAP architecture), and `references/effects-catalog.md` (licence-aware index of motion components, sections, cursors, canvas effects, and shaders).
+- SKILL.md: still-frame test, `MotionConfig reducedMotion="user"`, measured brand-page gate with scoped allowances, open-licence imagery preference.
+- Conflict policy: on brand-register surfaces the taste-skill v2 house rules override genre packs; packs were translated (no mono labels, index numbers, hairlines, outlined boxes, resting shadows, cream/terracotta/violet palettes, styled accent words) and carry no inspector allowances.
+- Smoke tests for the vendored runtime; `check:js` now covers `tools/taste/`.
+
 ## Unreleased — source refresh 2026-09-11
 
 - Refreshed the embedded UI/UX Pro Max catalog, search engine, design-system generator, dark-mode resolution, diagnostics, and data-contract metadata.

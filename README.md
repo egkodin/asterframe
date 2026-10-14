@@ -3,9 +3,9 @@
 ![Asterframe banner](assets/banner.png)
 
 **Design direction for AI coding agents.**  
-One skill, 27 commands, 44 deterministic interface rules, live browser iteration, and a local UI/UX intelligence library.
+One skill, 29 commands, 44 deterministic interface rules, live browser iteration, and a local UI/UX intelligence library.
 
-[Quick start](#quick-start) · [Commands](#27-commands) · [Installation](#installation) · [How it works](#how-it-works)
+[Quick start](#quick-start) · [Commands](#29-commands) · [Installation](#installation) · [How it works](#how-it-works)
 
 </div>
 
@@ -23,6 +23,8 @@ Asterframe gives the agent a complete design operating system instead of a loose
 - **Deterministic checks.** Forty-four rules detect recurring AI-generated design patterns and general quality problems without requiring an API key.
 - **Scoped specialist guidance.** The concern map selects relevant installed frontend skills, including the adapted anti-slop guidance, without starting a second design workflow or requiring every optional tool.
 - **Local design intelligence.** The refreshed catalog covers 79 searchable styles, 192 palettes, 74 font pairings, 192 product types, 119 UX guidelines, 25 chart types, curated icons, and 22 stack catalogs.
+- **Art direction from a studied library.** `direct` deals researched directions (hero and section blueprints, type systems, palettes) from 247 studied gallery sites, finds credited open-licence pictures of the subject's world, and fails the render on measured defects at three widths.
+- **Genre identities and motion with exact values.** Ten fixed genre packs, a catalog of product design-system presets, nine UI transition recipes, 24 text effects, GSAP architecture, and a licence-aware index of motion components, shaders, cursors, and canvas effects.
 - **Live browser iteration.** Selected elements can be explored as visual variants in a running application before changes are accepted.
 
 ## What's included
@@ -45,13 +47,15 @@ When you want persistent product and design documentation, run:
 
 In Codex, Asterframe is explicitly invoked (`$asterframe`); its invocation policy prevents automatic selection. Use one primary design workflow for a surface. Other harnesses may expose the slash-command form shown here.
 
-### 27 commands
+### 29 commands
 
 | Command | Purpose |
 |---|---|
 | `/asterframe init` | Establish project and design context |
 | `/asterframe craft` | Shape, build, and visually iterate on a feature |
 | `/asterframe shape` | Resolve UX and UI before implementation |
+| `/asterframe direct` | Art-direct a landing page, marketing site, or portfolio with dealt directions and a real-browser gate |
+| `/asterframe explore` | Build two to five divergent HTML variations to compare before committing |
 | `/asterframe redesign` | Upgrade an existing interface while preserving required behavior |
 | `/asterframe anti-slop` | Detect and remove generic AI-default patterns |
 | `/asterframe motion-scout` | Find high-confidence motion opportunities without editing |
@@ -228,6 +232,7 @@ asterframe/
 ├── references/               # Command and design guidance
 ├── scripts/                 # Context, detector, hooks, pinning, and live mode
 ├── tools/uiux/              # Searchable UI/UX data and Python utilities
+├── tools/taste/             # Bundled taste-skill v2 runtime: direction library, draw/lint/inspect/assets scripts
 ├── agents/                  # Supporting agent definitions
 ├── LICENSES/                # Preserved upstream license texts
 ├── NOTICE.md                # Attribution and modification record

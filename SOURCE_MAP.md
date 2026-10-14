@@ -57,3 +57,21 @@ upstream Asterframe release. These revisions are historical evidence, not a
 
 The constituent skills are intentionally not copied as standalone nested skills:
 Asterframe changes their routing, paths, command names, and runtime identity.
+
+## Design-source merge — 2026-10-14
+
+Nine sources were reviewed at the revisions below. What each contributes, how, and what was deliberately left out:
+
+| Source | Revision | Licence | Integrated as | Boundary |
+|---|---|---|---|---|
+| [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) `skills/taste-skill` (v2.0.0) | `a60a36dc2bb3bb77ccf17f2f62041f5ca8a458b9` | MIT | Runtime vendored verbatim in `tools/taste/` (scripts, library, assets, references); workflow adapted as `direct` in `references/direct.md` | Upstream `SKILL.md`, `README.md`, and evals not copied (no nested skills). House rules govern every brand-register surface and override genre packs; integrity findings are never allowed; style findings may be allowed only for a brand asset or an existing design system, as upstream permits |
+| [madebymustafa/design-taste](https://github.com/madebymustafa/design-taste) | `c4a6bff0871eb4b15371b0e7d2751628b0ed4608` | MIT | Ten genre packs condensed in `references/genres.md`; motion tokens, choreography, GSAP architecture in `references/motion-library.md`; landing objections in `references/direct.md` | Packs are opt-in identities translated into the taste-skill v2 house style: mono labels, index numbers, hairlines, outlined boxes, hard shadows, cream/terracotta grounds, misregistration and accent words replaced; palettes re-checked against the inspector. Selling sequence is a checklist of objections, not a page template |
+| [marvkr/better-design](https://github.com/marvkr/better-design) | `e146625f3041ef8089a2013587435fc763dc3b15` | MIT | 31 product presets and registry install pattern in `references/genres.md`; transitions.dev timing values and the bundled text-effect catalog restated as parameters in `references/motion-library.md`; optional MCP review loop | No component code or tokens copied; MCP used only when connected; installer never run by the skill |
+| [ibelick/motion-primitives](https://github.com/ibelick/motion-primitives) | `120f64f6ca60348e251f929e9c81f11ccbe45eda` | MIT | Component index and install command in `references/effects-catalog.md` | No code redistributed; reduced-motion gap documented |
+| [ui-layouts/uilayouts](https://github.com/ui-layouts/uilayouts) | `88d827d7ec342917ca06f6894e5add65fabbe5d8` | MIT | Registry families and install URL in `references/effects-catalog.md` | Section blocks treated as scaffolding to recompose, not finished design |
+| [ui-layouts/cursify](https://github.com/ui-layouts/cursify) | `b3a173c33f12e74550389c9555f9ce85c30c46f6` | none found | Effect families and cursor rules in `references/effects-catalog.md` | No licence: reference only, no code copied or recommended for copying |
+| [DavidHDev/canvas-ui](https://github.com/DavidHDev/canvas-ui) | `a04a99b235299ee79a123a16ccb2e6cf9da74b6b` | MIT + Commons Clause | Component families, install pattern, browser-support caveats in `references/effects-catalog.md` | Commons Clause forbids redistributing components: install into the user's app only, never vendored |
+| [paper-design/shaders](https://github.com/paper-design/shaders) | `43cd68db79fa0b1759f72ffc941b3238e2a3954c` | Apache-2.0 | Shader index by job, pinning, WebGL2 fallback, and reduced-motion rules in `references/effects-catalog.md` | Package installed by users; no shader code redistributed |
+| [superdesigndev/superdesign](https://github.com/superdesigndev/superdesign) | `49e2b9dd9615c6dae936b326b1ddb85d4f1d6f19` | AGPL-3.0 (+ enterprise files) | Ideas only, independently written: staged structure → theme → motion → mockup exploration, numbered variant files, compact motion-spec notation (`references/explore.md`, `references/motion-library.md` §2) | No text, prompt, or code copied, keeping Asterframe free of AGPL obligations |
+
+New commands: `direct`, `explore`. New references: `direct`, `explore`, `genres`, `motion-library`, `effects-catalog`. `references/taste.md` is kept as the archived v2-experimental reference.

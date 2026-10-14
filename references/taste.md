@@ -3,6 +3,8 @@ name: design-taste-frontend
 description: Anti-slop frontend skill for landing pages, portfolios, and redesigns. The agent reads the brief, infers the right design direction, and ships interfaces that do not look templated. Real design systems when applicable, audit-first on redesigns, strict pre-flight check.
 ---
 
+> **Archived reference (taste-skill v2 experimental).** Asterframe now bundles taste-skill v2 as the `direct` command with its runtime in `tools/taste/`. Use this file only for the dial presets, the brief → design-system map, and the redesign protocol it still informs; where it disagrees with `references/direct.md`, the direct workflow and Asterframe's priority order win.
+
 # tasteskill: Anti-Slop Frontend Skill
 
 > Landing pages, portfolios, and redesigns. Not dashboards, not data tables, not multi-step product UI.

@@ -13,6 +13,12 @@ Asterframe is a materially reorganized integration assembled from the user-provi
 - `ui-ux-pro-max` — retained as the local searchable data and design-system utility under `tools/uiux/`.
 - `miqdadbadjuber/anti-slop` — adapted from the core and five focused skills into purpose-led composition, truthful content, working interactions, copy/comment hygiene, and responsive/accessibility checks. Revision and adaptation boundaries are recorded in `SOURCE_MAP.md`; the upstream MIT notice is preserved in [`LICENSES/antislop-MIT.txt`](LICENSES/antislop-MIT.txt). The optional contrast checker remains an external installed tool; its code is not redistributed here.
 
+- `taste-skill` v2 — runtime (scripts, direction library, base assets, references) redistributed unmodified under `tools/taste/` with its MIT notice in [`LICENSES/taste-skill-MIT.txt`](LICENSES/taste-skill-MIT.txt); its workflow is adapted as the `direct` command.
+- `design-taste` (madebymustafa) — genre identities and motion/GSAP craft condensed and modified in `references/genres.md` and `references/motion-library.md`; MIT notice in [`LICENSES/design-taste-MIT.txt`](LICENSES/design-taste-MIT.txt).
+- `better-design` (marvkr) — preset catalog, transition timing values, and review-loop workflow adapted in `references/genres.md` and `references/motion-library.md`; MIT notice in [`LICENSES/better-design-MIT.txt`](LICENSES/better-design-MIT.txt).
+- Referenced, not redistributed: motion-primitives (MIT), ui-layouts (MIT), Paper Shaders (Apache-2.0), Canvas UI (MIT + Commons Clause), Cursify (no licence found). `references/effects-catalog.md` points to their official install paths and states each boundary.
+- Superdesign (AGPL-3.0) informed the `explore` workflow at the level of ideas only; no material was copied.
+
 The embedded UI/UX catalog and runtime were refreshed from
 `nextlevelbuilder/ui-ux-pro-max-skill` at the revision recorded in
 `SOURCE_MAP.md`; its MIT notice is preserved at
@@ -29,7 +35,8 @@ The following parts are materially modified or newly assembled for Asterframe:
 - brand/product register selection;
 - conflict-resolution and preservation rules;
 - unified command metadata and command references;
-- `redesign`, `anti-slop`, `motion-scout`, and `system` workflows;
+- `redesign`, `anti-slop`, `motion-scout`, `system`, `direct`, and `explore` workflows;
+- genre packs, motion library, and effects catalog references;
 - runtime, hook, live-mode, command, path, and environment-variable identity;
 - repository documentation, validation, and contribution files.
 

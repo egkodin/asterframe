@@ -1,7 +1,7 @@
 # Motion
 
 Read this before adding any animation. The static page must already be finished and passing
-`inspect.mjs`; motion is the last pass, never a way to rescue a weak layout.
+`inspect.mjs --phase still`; motion is an optional last pass, never a way to rescue a weak layout.
 
 ## Contents
 
@@ -15,22 +15,14 @@ Read this before adding any animation. The static page must already be finished 
 
 ## 1. The budget
 
-A page that does not move reads as a mock-up; the inspector counts what moves while the page loads and
-scrolls, and fails it under eight elements. The motion layer has four parts:
+A static page can be finished. The inspector records motion counts for review without imposing a minimum. Before adding motion, pass `inspect.mjs --phase still` (reduced-motion emulation); after the decision, run `--phase final`, even when no animation was added. Both phases retain all integrity checks.
 
-- **One signature moment:** the thing a visitor would describe an hour later: the headline that rises
-  out of a mask, the image that opens like a shutter, the wordmark that scales with the scroll. The
-  direction sheet from `draw.mjs` names one. Build that one well; it is the only move allowed to be
-  loud.
-- **Section entrances, choreographed per section:** the parts of each section arrive in reading order
-  (heading, text, picture, details), staggered 60–90ms, rising 16–32px with opacity, once. Vary the
-  manner with the content instead of stamping one preset everywhere: a list arrives row by row, a
-  picture opens from a mask or settles from a slight scale, a figure counts up once, a statement rises
-  line by line.
-- **Feedback under the hand:** buttons that give on press, links that answer the pointer, cards and
-  pictures that respond on hover, a menu that opens from where it was clicked.
-- **One moving picture:** a found clip as a muted loop with a poster frame, a slow drift or scale on
-  a large photograph, or a scroll-linked move on the hero picture.
+Choose only what serves this brief:
+
+- **One signature moment**, when the direction's proposed move earns attention.
+- **Section entrances**, only where they clarify reading order; do not reveal every block by default.
+- **Feedback under the hand**, always visible, animated only when it helps.
+- **A moving picture**, only when the content benefits from movement rather than a still frame.
 
 What is still banned: the same fade-and-slide-up with the same timing on every block, which is the most
 cited motion tell of generated pages; motion that hides content until a script runs, with no fallback;

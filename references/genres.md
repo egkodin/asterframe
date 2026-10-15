@@ -5,9 +5,9 @@ Two kinds of ready-made identity. Use one only when the brief names it, a refere
 - **Genre packs** are brand-register identities (palette, type, composition, motion). Adapted from [madebymustafa/design-taste](https://github.com/madebymustafa/design-taste) (MIT) and **translated into the taste-skill v2 house style**.
 - **System presets** are product-register token sets with themed shadcn/ui components. Catalogued from [marvkr/better-design](https://github.com/marvkr/better-design) (MIT).
 
-## The house style wins
+## Use the brief and preserve integrity
 
-On brand-register surfaces the taste-skill v2 house rules (`references/direct.md` and `tools/taste/references/tells.md`) override every genre pack. A pack supplies a palette, typefaces, proportions, a composition idea, and a motion flavour; it never licenses a banned device. The upstream packs relied on mono labels, index numbers, hairlines, outlined boxes, hard offset shadows, cream grounds, terracotta or violet accents, misregistration text shadows, and styled accent words. Each has been replaced below:
+Treat the taste toolkit's house style as the default against unearned decoration, subordinate to the brief, existing brand, and accessibility. A pack supplies palette, typefaces, proportions, composition, and motion options. The conservative translations below replace common defaults as follows; retain a deliberately requested device when it has a concrete rationale and passes integrity checks:
 
 | Upstream device | Replacement |
 |---|---|
@@ -20,7 +20,7 @@ On brand-register surfaces the taste-skill v2 house rules (`references/direct.md
 | Italic, coloured, or underlined accent word | One face, one colour; the words carry the emphasis |
 | Gradients, halftone patterns, text shadows | Flat colour, real photographs, or real printed matter found with `assets.mjs` |
 
-Every pack also inherits the toolkit's floors: headlines at two lines or fewer, at least four real pictures, and a motion layer of eight or more moving elements. `--allow` is reserved for what the toolkit itself permits: a brand asset or an existing design system that requires the device, recorded in the report. A pack is never a reason to allow a rule. If a brief explicitly demands a banned device that is not an existing brand asset, tell the user about the conflict before building instead of allowing it silently.
+There is no minimum image or animation count. Choose them for the content and audience; static, typographic and single-image pages may be complete. A deliberate brief, brand, design system or subject-specific rationale may justify a scoped style `--allow`, recorded in the report. A pack name alone does not justify every device. Integrity rules can never be allowed; the runtime rejects attempts to suppress them.
 
 All values below were checked against the inspector's palette rules. Hex values are starting points: recompute contrast for every text/ground pair actually used.
 
@@ -29,8 +29,8 @@ All values below were checked against the inspector's palette rules. Hex values 
 1. Name it in the Design Read: "Reading this as: … in the editorial-minimal identity."
 2. Run `direct` with `--keep palette,type` and map the pack's colours and faces onto the dealt roles; take composition from the draw.
 3. Keep the pack's one signature and spend no other boldness budget.
-4. Build the full motion layer from `references/direct.md` step 9 in the pack's motion flavour.
-5. Gate with `lint.mjs` and `inspect.mjs` with no pack allowances.
+4. Follow `references/direct.md` step 9 to decide whether motion earns its place; no animation is valid.
+5. Gate with `lint.mjs` and `inspect.mjs --phase still`, then `--phase final`; record any justified style allowances.
 
 ## Genre packs
 

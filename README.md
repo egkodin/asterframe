@@ -54,7 +54,7 @@ In Codex, Asterframe is explicitly invoked (`$asterframe`); its invocation polic
 | `/asterframe init` | Establish project and design context |
 | `/asterframe craft` | Shape, build, and visually iterate on a feature |
 | `/asterframe shape` | Resolve UX and UI before implementation |
-| `/asterframe direct` | Art-direct a landing page, marketing site, or portfolio with dealt directions and a real-browser gate |
+| `/asterframe direct` | Art-direct a landing page, marketing site, or portfolio with dealt directions and still/final browser checks |
 | `/asterframe explore` | Build two to five divergent HTML variations to compare before committing |
 | `/asterframe redesign` | Upgrade an existing interface while preserving required behavior |
 | `/asterframe anti-slop` | Detect and remove generic AI-default patterns |
@@ -99,6 +99,8 @@ node "${ASTERFRAME_SKILL_DIR}/scripts/anti-slop/scan.mjs" <project-or-source-dir
 ```
 
 Detector output is evidence, not an automatic verdict. The skill applies context and design judgment before recommending changes.
+
+For `direct`, run the taste inspector with `--phase still` before deciding on motion and `--phase final` on the finished page (the default). Still mode emulates reduced motion. There are no image or animation quotas; document deliberate style exceptions. `--allow` and saved allowances reject integrity rule ids such as `overflow`, `contrast`, and `broken-image`.
 
 ## Usage examples
 

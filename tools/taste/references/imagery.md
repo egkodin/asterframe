@@ -171,7 +171,7 @@ real footage with `--video` (section 11).
 
 ## 4. The dealt photographs
 
-- The sheet lists eight from one set so they share a subject and a light. Use three to six.
+- The sheet lists eight from one set so they share a subject and a light. Use only those that serve the brief; there is no minimum count.
 - Each line says where the calm area is. Put text there or keep text off the image.
 - More from the same or another set: `node scripts/draw.mjs --photos list`, `--photos <set>`, or
   `--photos "fog coast"` to search descriptions.

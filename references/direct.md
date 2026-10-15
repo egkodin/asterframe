@@ -36,7 +36,7 @@ Hold the three directions against the inventory; choose the one whose way of com
 - `--list sectors` and `--list roles` print the vocabularies. The hero is implied.
 - `--have`: only assets that exist (`photography`, `product-photo`, `product-ui`, `illustration`, `video`). Found open-collection pictures are not the project's own.
 - `--keep palette,type` when the brand fixes colors or faces; map brand values onto the dealt roles.
-- **An existing design system or brand fixes palette and type; a named genre supplies them.** Pass `--keep palette,type` and take only composition from the draw. Genre packs in [genres.md](genres.md) are already translated into the house style and never add allowances.
+- **An existing design system or brand fixes palette and type; a named genre supplies them.** Pass `--keep palette,type` and take only composition from the draw. Genre packs in [genres.md](genres.md) supply conservative starting points. A deliberate brief or subject-specific rationale may justify a scoped style allowance; record it rather than silently changing the requested identity.
 - Redraw a slot (`--redraw hero|type|palette|photos|section:<role>|direction`) only for a stated reason: it contradicts the brand, or needs an asset that does not exist. `--alternatives <role>` lists replacements when real content cannot fit a dealt section. Record every redraw.
 - If the dealt palette fights the subject's own material, keep its proportions and take colors from the subject; say so.
 - `node "$T/scripts/draw.mjs" --show` reprints the sheet. Re-read it before each section.
@@ -79,7 +79,7 @@ Build with motion off in your head; a page that needs animation to look finished
 
    Search the inventory, not the category (its street in old postcards, an old map, its material up close, engravings of its trade). A found picture is never presented as the client's own product, room, dish, person, or team, and every one is credited on the page. Download only after the user's task authorizes adding assets to the project.
 
-   The toolkit's picture floor is four real pictures (usually 6–12); SVG drawings do not count. It applies to every brand page, whatever the genre.
+   Choose imagery for the claim and the subject, not a count. One strong photograph, truthful SVG/canvas work, product UI, or typography alone may be right. Image-led briefs still need imagery; never pad a page with unrelated pictures to satisfy a quota.
 5. **The live thing**, in the section where it proves the claim.
 6. **Fullness:** each desktop screen reads as a poster with one dominant thing. At most one deliberate rest per page.
 7. **States and semantics:** real links and buttons, visible focus, alt text, a phone layout composed for the phone.
@@ -88,12 +88,12 @@ Build with motion off in your head; a page that needs animation to look finished
 
 ```bash
 node "$T/scripts/lint.mjs" <source files or folder>
-node "$T/scripts/inspect.mjs" <url | path/to/index.html> [--allow rule,rule]
+node "$T/scripts/inspect.mjs" <url | path/to/index.html> --phase still [--allow rule,rule]
 ```
 
-`inspect.mjs` serves local files from a throwaway `127.0.0.1` server, opens the page at 1440/768/390, measures it, and saves screenshots to `.taste-skill/inspect/`. Fix every `FAIL`; treat each `WARN` as wrong unless you can defend it to a designer in one sentence. Re-run until no `FAIL` remains. If no local Chromium-family browser exists, run `lint.mjs`, take screenshots with the available browser tool, and state that the inspector did not run.
+`inspect.mjs` serves local files from a throwaway `127.0.0.1` server, opens the page at 1440/768/390, measures it with reduced-motion emulation in the still phase, and saves screenshots to `.taste-skill/inspect/`. Fix every `FAIL`; treat each `WARN` as wrong unless you can defend it to a designer in one sentence. Re-run until no `FAIL` remains. If no local Chromium-family browser exists, run `lint.mjs`, take screenshots with the available browser tool, and state that the inspector did not run.
 
-**Two classes of finding.** Integrity findings are never allowed: `overflow`, `contrast`, `broken-image`, `covered-text`, `clipped-text`, `small-text`, `body-size`. House-style findings (`eyebrow`, `mono`, `numbering`, `hairline`, `outlined-box`, `shadow`, `gradient`, `palette-*`, `micro-label`, `few-pictures`, `still-page`, and the rest) follow taste-skill v2 exactly: the only valid allowance is a brand asset or an existing design system that requires the device. A genre pack, an aesthetic preference, or a calm audience is not a reason. Put the reason in the report and the rule ids in `--allow` or in the `allow` array of `.taste-skill/direction.json`, which the inspector reads. Never allow a rule to make a weak page pass; if the user asks for a banned device that is not a brand asset, raise the conflict before building.
+**Two classes of finding.** Integrity findings are never allowed: `overflow`, `contrast`, `broken-image`, `covered-text`, `clipped-text`, `small-text`, `body-size`. The runtime rejects these ids in `--allow` and in the saved `allow` array before opening a browser; unknown ids and malformed allowances are errors too. House-style findings (`eyebrow`, `mono`, `numbering`, `hairline`, `outlined-box`, `shadow`, `gradient`, `palette-*`, `micro-label`, and the rest) flag defaults that need design judgment. Allow a style only for a deliberate brief, brand or design-system requirement, or a concrete subject-specific reason. Put that reason in the report and the exact ids in `--allow` or the `allow` array of `.taste-skill/direction.json`. Never use an allowance to hide breakage. The absence of pictures is an advisory review finding; there is no image or animation quota.
 
 `lint.mjs` honours `taste-skill-ignore` line comments and `data-ui` on real interface fragments; real code in `pre`/`code` and real tables and form fields keep their own conventions.
 
@@ -103,14 +103,22 @@ Passing the gate is the floor, not the grade. Open every inspector screenshot an
 
 ## 9. Move
 
-Build the motion layer after the still page passes; Asterframe's motion policy and frequency gate still apply.
+After the still page passes, decide whether motion improves this brief. Asterframe's motion policy and frequency gate apply; zero animation is a valid outcome.
 
-1. **The signature move** named on the sheet: one, done well.
-2. **An entrance for the parts of every section:** heading, then text, then picture, 60–90ms apart, rising 16–32px with opacity, once per section. Never one identical fade on every block; never content that stays hidden if script fails.
-3. **Feedback on every control:** hover, press, focus.
-4. **One moving picture:** a muted loop with poster, a slow drift on a photograph, or a scroll-linked hero move.
+- Use the sheet's signature move only if it serves the page's argument.
+- Add section entrances only where they guide reading; never animate every section by default.
+- Give every control visible feedback; it need not be animated.
+- Use a moving picture only when its content adds something a still image cannot.
 
-Transform and opacity only; every move has a reduced-motion fallback that keeps the content and drops the travel. Recipes: `tools/taste/references/motion.md` and [motion library](motion-library.md); components and shaders: [effects catalog](effects-catalog.md). The toolkit's motion floor (`still-page` fails under 8 moving elements, warns under 16) applies to every brand page; a genre changes the flavour of the motion, not its amount. Re-run the inspector and check every screenshot for content that failed to appear.
+Prefer transform and opacity for routine motion. Every move needs a reduced-motion fallback that keeps the content and drops the travel. Recipes: `tools/taste/references/motion.md` and [motion library](motion-library.md); components and shaders: [effects catalog](effects-catalog.md). No minimum number of moving elements is required.
+
+Re-run the inspector on the finished page, even if it stays static:
+
+```bash
+node "$T/scripts/inspect.mjs" <url | path/to/index.html> --phase final [--allow rule,rule]
+```
+
+Check every screenshot for content that failed to appear. If motion was added, repeat `--phase still` to review the reduced-motion layout. Still mode emulates the preference; it does not disable scripts or guarantee that a page honors it. Check essential content with JavaScript disabled separately when possible.
 
 ## 10. Report
 
@@ -118,7 +126,7 @@ Direction name and seed, redraws and reasons, the idea sentence and live thing, 
 
 ## Special cases
 
-- **Existing brand or design system:** `--keep palette,type`; brand assets that require a banned device stay, with a scoped `--allow`.
+- **Existing brand or design system:** `--keep palette,type`; keep deliberate brand devices with a scoped style `--allow`; integrity findings remain mandatory.
 - **Redesign or review of an existing page:** run `lint.mjs` and `inspect.mjs` first and report findings, then critique the screenshots. For a redesign, draw and continue from step 2, preserving real content and working behaviour (see `references/redesign.md`).
 - **A component or single section:** skip the draw; match the surrounding design, apply the craft laws, and still inspect.
 - **No checkout or form backend:** the primary action goes to the real destination, or a `mailto:` with the visitor's choices filled in; never fake a payment form.

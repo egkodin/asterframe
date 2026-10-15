@@ -38,11 +38,10 @@ sheets. Make each pass on its own; do not blend them.
 7. **Colour.** Name the proportions: which colour holds most of the surface, which supports, where is
    the accent? An accent that appears in ten places means nothing. One that appears on the single
    action and one detail means "here".
-8. **Images.** Count the real pictures: are there at least four, and is there a moving one? A page of
-   drawings only, or of type only, looks unfinished next to one with real photographs and footage.
-   Is every image doing a job (showing the thing, setting the place, proving the claim)?
-   Do the crops share ratios? Is anything a grey box, a stretched photo, a fake screen made of bars?
-   Does the photography share one light and one grade, or is it a stock mix?
+8. **Images.** Does the chosen medium show the subject and prove the claim? One strong photograph,
+   truthful SVG/canvas work, product UI or typography alone may fit. Never add images or video to meet
+   a count. Image-led briefs still need meaningful imagery. Check crop, treatment and authenticity;
+   avoid grey boxes, stretched photos, fake screens and unrelated stock.
 9. **Sameness.** Write one word for each section's layout (split, list, full-bleed, grid, statement,
    index …). The same word twice in a row, or three times on the page, is the template showing.
 10. **Phone.** Is the mobile screen a composition of its own, with its own crop and its own line
@@ -104,7 +103,7 @@ rare. If your first score for your own work is 9, score it again as the juror wh
 
 ## 3. Caps
 
-These override the arithmetic.
+These override the arithmetic. Apply aesthetic caps only when the device is unearned or conflicts with the brief; a documented style allowance is not a defect. Integrity failures always retain their caps.
 
 - Any `FAIL` still reported by `inspect.mjs`: overall cannot exceed **6.0**.
 - A headline of three or more lines at any viewport, an eyebrow label, monospace labels, 01/02/03
@@ -112,10 +111,9 @@ These override the arithmetic.
   a screenshot: overall cannot exceed **6.5**, whatever else is true.
 - Pass 3 fails (the page could belong to anyone): creativity cannot exceed **6**.
 - The idea passes for the nearest competitor (pass 14): creativity cannot exceed **7**.
-- Fewer than four real pictures (photographs, archival images, footage; drawings do not count):
-  design cannot exceed **6.5**.
-- A page that barely moves (the inspector's `still-page`), or motion that is one identical fade on
-  every block: design cannot exceed **7**.
+- Imagery required by the brief is missing or unrelated: design cannot exceed **6.5**.
+- Motion is one identical fade on every block without a content-specific purpose: design cannot
+  exceed **7**. No animation or video is not a reason to cap the score.
 - No live thing (pass 14): creativity cannot exceed **7.5**.
 - Any placeholder (grey box, lorem, "Image here"): content cannot exceed **5**.
 - Two or more desktop screens that are mostly empty ground, or a page whose running text is small and

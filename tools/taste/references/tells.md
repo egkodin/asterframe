@@ -7,7 +7,7 @@ component: every published "use this instead" list has become the next wave of t
 Replacements here are procedures (draw from the library, derive from the subject), not products.
 
 `scripts/inspect.mjs` and `scripts/lint.mjs` detect most entries. Status: **banned** means the
-inspector fails the page; **warned** means it flags it and you need a reason.
+inspector fails the page by default; **warned** means it flags it and you need a reason. In Asterframe, deliberate brief-, brand-, system- or subject-led style exceptions follow `references/direct.md` in the repository root. Integrity rules cannot be allowed; image and animation counts are not quotas.
 
 ## Contents
 

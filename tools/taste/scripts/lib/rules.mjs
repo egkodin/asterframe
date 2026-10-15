@@ -4,6 +4,23 @@
 
 const inRange = (h, a, b) => (a <= b ? h >= a && h <= b : h >= a || h <= b);
 
+export const INTEGRITY_RULE_IDS = Object.freeze([
+  'overflow', 'contrast', 'broken-image', 'covered-text', 'clipped-text', 'small-text', 'body-size',
+]);
+
+// Validate at the CLI boundary and here, so direct callers cannot suppress broken-page findings.
+export function validateAllow(allow) {
+  if (!Array.isArray(allow) || allow.some((id) => typeof id !== 'string')) {
+    throw new Error('allow must be an array of rule ids');
+  }
+  const ids = [...new Set(allow.map((id) => id.trim()).filter(Boolean))];
+  const protectedIds = ids.filter((id) => INTEGRITY_RULE_IDS.includes(id));
+  if (protectedIds.length) throw new Error('Integrity rules cannot be allowed: ' + protectedIds.join(', '));
+  const unknown = ids.filter((id) => !RULE_IDS.includes(id));
+  if (unknown.length) throw new Error('Unknown allow rule ids: ' + unknown.join(', '));
+  return ids;
+}
+
 // Colour families this skill treats as generated-page signatures.
 export function colourFamily(hsl) {
   if (!hsl) return null;
@@ -22,6 +39,7 @@ const hexToHsl = (hex) => {
 };
 
 export function judge(m, { width = m.viewport.w, allow = [] } = {}) {
+  allow = validateAllow(allow);
   const out = [];
   const add = (level, id, message, fix) => { if (!allow.includes(id)) out.push({ level, id, width, message, fix }); };
   const mobile = width < 600;
@@ -107,12 +125,10 @@ export function judge(m, { width = m.viewport.w, allow = [] } = {}) {
   else if (m.type.body && m.type.body.size < 16 && !mobile) add('WARN', 'body-size', `Body text is ${m.type.body.size}px.`, 'Body copy 16–20px.');
   if (m.type.body?.contrast && m.type.body.contrast < 7) add('WARN', 'grey-body', `The running text is a soft grey on its ground (${m.type.body.contrast}:1).`, 'Set body copy in the full ink (7:1 or more). Keep the muted ink for secondary notes; pages read thin and unfinished when everything is grey.');
   if (m.buttons.inHero === 0) add('WARN', 'first-action', `No visible button in the first ${mobile ? 'phone ' : ''}screen.`, mobile ? 'On a phone the first screen still holds the headline, the supporting sentence and the action; move navigation into one row or a menu so it does not push them down.' : 'Give the one primary action a real button in the first screen (a filled or solid-bordered control, 44px or taller), not only a link in the navigation.');
-  // Models skip pictures when nothing makes them: the page must carry real ones (see SKILL.md, imagery).
+  // Counts cannot decide whether typography, a drawing or a product screenshot suits the brief.
   if (width >= 1100 && m.page.realPictures != null) {
     const pics = m.page.realPictures + m.page.uiPictures;
-    if (pics < 4) add('FAIL', 'few-pictures', `Only ${pics} picture(s) on the page (${m.page.realPictures} photographs, footage or raster images, ${m.page.uiPictures} interface fragments). Drawings in SVG do not count.`, 'Find real pictures of the subject\'s world with scripts/assets.mjs (photographs, archival images, maps, engravings, footage), download them to assets/ and give them room: a hero picture, one per section that has a subject, a full-width band. At least four, usually six to twelve.');
-    else if (m.page.realPictures < 2) add('WARN', 'no-real-pictures', `Only ${m.page.realPictures} real photograph(s) or clip(s); the rest are interface fragments.`, 'Add two or more real pictures of the customer\'s world from scripts/assets.mjs, not stock of people at laptops.');
-    if (!m.page.videoCount) add('WARN', 'no-footage', 'No video anywhere on the page.', 'Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject.');
+    if (pics === 0) add('WARN', 'few-pictures', 'No photographs, footage, raster images or interface fragments were counted.', 'Review the brief: add honest imagery when it proves a claim or shows the subject. Typography, SVG, canvas or a single strong image may carry the page; do not add pictures to meet a quota.');
   }
   if (m.page.sideScrollers) add('WARN', 'side-scroll', `${m.page.sideScrollers} row(s) scroll sideways with content past their edge.`, 'Jurors and most visitors read a row cut at the edge as clipped, not as scrollable. Wrap it onto more lines, or end it inside the grid.');
   if (m.page.blendText) add('WARN', 'blend-text', `${m.page.blendText} text element(s) use mix-blend-mode difference or exclusion.`, 'Over anything but black, white or grey, blended text takes random hues (blue on orange, lilac on green) that jurors read as a glitch. Use a solid ink chosen for the ground, or keep the blended text over neutral grounds only.');

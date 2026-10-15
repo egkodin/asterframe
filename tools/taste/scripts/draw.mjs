@@ -432,7 +432,7 @@ function render(s) {
   p('with a stated brand constraint or needs an asset that does not exist, and say why in your report.');
   p();
   p('The parts of this sheet were written separately and will disagree in small ways. Settle every disagreement in this order:');
-  p('**house rules** (including type no smaller than 13px and body text of 16px or more) → **the direction** (the idea, the composition habits, where the');
+  p('**brief, brand, accessibility and product truth** → **justified style choices** → **house defaults** → **the direction** (the composition habits, where the');
   p('one accent goes) → **the type system and the palette** (which face does which job, the five size steps, which colour is the ground and where the');
   p('accent goes) → **the hero blueprint** → **the section blueprints**. Under each blueprint below, "Adjusted for this page" lists where it disagrees.');
   p('In practice: take geometry from blueprints (columns, proportions, what sits where) and take everything else from above them. Map every size a');
@@ -477,7 +477,7 @@ function render(s) {
     own: '**Use the images that belong to the project in every picture slot.** For slots they cannot fill, real pictures of the subject\'s world from the open collections come next (start with ' + find + '; credit them on the page), then the dealt photographs.',
   };
   p(MODE[s.imagery || 'atmosphere']); p(); p(d.imagery);
-  p(); p('**Floor (the inspector checks it):** at least four real pictures on the page, usually six to twelve; SVG drawings do not count. One moving picture where an honest clip exists: `node <skill>/scripts/assets.mjs --video "<query>"`, used as a muted loop with a poster frame. Whatever this direction says about pictures, it is carried out with real ones.');
+  p(); p('**Imagery follows the brief, not a quota.** Use a single strong image, real product UI, truthful drawings, or typography alone when they carry the argument. Add footage only when movement adds meaning; never fill slots with unrelated stock.');
   if (s.photos) {
     p();
     p(s.imagery === 'interface' ? `Optional atmosphere, two at most, from the "${s.photos.title || s.photos.set}" set (${s.photos.note}). The page does not need them.` : `Photographs dealt for this build, from the "${s.photos.title || s.photos.set}" set (${s.photos.note})`);
@@ -489,10 +489,10 @@ function render(s) {
     if (s.photos.treatment) p(`Treatment: ${s.photos.treatment}`);
     for (const ph of s.photos.photos) p(`- \`https://picsum.photos/id/${ph.id}/1600/1000\` — ${ph.alt} · ${ph.tone} tone · ${(ph.colours || []).join(', ')}${ph.mono ? ' · black-and-white' : ''}${ph.lookalike ? ' · **could be taken for the product: never use it as the product**' : ''}${ph.calm && ph.calm !== 'none' ? ` · calm area: ${ph.calm}` : ''} · native ${ph.ratio >= 1.15 ? 'landscape' : ph.ratio <= 0.87 ? 'portrait' : 'square'} · photo: ${ph.by}`);
     p('The last two path numbers are width and height: request the exact crop you render (`/1200/1500` for a 4:5 portrait, `/2400/1350` for a hero) and');
-    p('add `?grayscale` to desaturate. ' + (s.imagery === 'interface' ? 'Use at most two.' : 'Use three to six of them, not all eight.') + ' Always set `width`, `height`, `alt` and `loading="lazy"` (not on the hero image).');
+    p('add `?grayscale` to desaturate. ' + (s.imagery === 'interface' ? 'Use at most two.' : 'Use only pictures that serve the page, with no minimum count.') + ' Always set `width`, `height`, `alt` and `loading="lazy"` (not on the hero image).');
     if (s.photos.others?.length) p(`Other sets that fit this brief: ${s.photos.others.join(', ')} — \`node draw.mjs --photos <set>\` prints one in full; \`--photos list\` shows all sets. Taking photographs from another set is your call and is not a redraw; keep them to one light and one treatment.`);
   } else if (d.photos === false) {
-    p(); p('This direction does not lead with photographs; it still carries the picture floor below, with real pictures placed where the direction allows them.');
+    p(); p('This direction does not lead with photographs. Add imagery only where the subject and the page argument need it.');
   }
   p();
   const adjust = (bp) => { const n = adjustments(bp, s); if (n.length) { p(); p('Adjusted for this page:'); for (const x of n) p(`- ${x}`); } };
@@ -506,7 +506,7 @@ function render(s) {
     p(`### ${i + 1}. ${sec.role} — ${sec.name} (${sec.shape})`); p(sec.blueprint); if (sec.mobile) p(`On a phone: ${sec.mobile}`); adjust(sec);
   });
   p();
-  if (s.motion) { p(`## 8. Motion — ${s.motion.name}`); p(s.motion.description); p('This is the signature move, the one loud moment. Around it the page still needs the rest of the motion layer (SKILL.md step 9): an entrance for the parts of every section, feedback on every control, and one moving picture. The inspector fails a page that barely moves. Recipes: references/motion.md.'); p(); }
+  if (s.motion) { p(`## 8. Motion — ${s.motion.name}`); p(s.motion.description); p('This is a candidate signature move, not a requirement. Follow SKILL.md step 9: choose motion only for a named purpose; a static page is valid. Give controls visible feedback, keep reduced-motion fallbacks, and never animate to meet a count. Recipes: references/motion.md.'); p(); }
   if (d.richness) { p('## 9. Where the richness comes from'); p(d.richness); p(); }
   if (d.pitfalls) { p('## 10. How this direction goes wrong'); p(d.pitfalls); p(); }
   if (s.references?.length) {
@@ -515,9 +515,9 @@ function render(s) {
     for (const r of s.references) p(siteCard(r, false));
     p('Full notes on any of them: `node draw.mjs --site <id>`.'); p();
   }
-  p('## Always');
-  p('Headlines two lines or fewer at every width. No eyebrow labels, no monospace, no 01/02/03, no thin rules, no gradients, no shadows at rest,');
-  p('no cream-and-terracotta, no violet. `inspect.mjs` measures all of it.');
+  p('## Defaults and integrity');
+  p('Default to short headlines and avoid unearned eyebrow labels, monospace, numbering, thin rules, gradients and resting shadows.');
+  p('Record deliberate brief-, brand-, system- or subject-led style exceptions via scoped --allow ids. Integrity rules cannot be allowed.');
   if (s.allow?.length) p(`This direction is allowed: ${s.allow.join(', ')} (the inspector reads this from the saved sheet).`);
   p();
   p(`Saved to ${sheetPath.split('\\').join('/')} · reprint with \`node draw.mjs --show\``);

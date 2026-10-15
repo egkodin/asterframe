@@ -108,7 +108,7 @@
     "argumentHint": "[query]"
   },
   "direct": {
-    "description": "Art-direct a public-facing page: inventory the subject, deal researched directions from the bundled taste library, build still, gate in a real browser, critique screenshots, then add the motion layer. Use for landing pages, marketing sites, portfolios, and product pages that need an authored direction.",
+    "description": "Art-direct a public-facing page: inventory the subject, deal researched directions from the bundled taste library, build still, gate in a real browser, critique screenshots, then decide whether motion serves the brief. Use for landing pages, marketing sites, portfolios, and product pages that need an authored direction.",
     "argumentHint": "[page or brief]"
   },
   "explore": {

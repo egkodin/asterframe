@@ -2,6 +2,14 @@
 
 All notable changes to Asterframe will be documented in this file.
 
+## Unreleased — contextual design gates
+
+- Added `inspect.mjs --phase still|final`: reduced-motion composition review before the final page check; final remains the default.
+- Reject integrity rule allowances from CLI, saved direction files and direct rule-engine calls; reject malformed or unknown allowance ids before browser startup.
+- Removed mandatory picture/video and moving-element quotas. Missing raster imagery is advisory; deliberate static and typographic pages can pass.
+- Let the brief, brand, design system and concrete subject-specific rationale justify scoped style exceptions; aligned draw output and critique guidance.
+- Added regression coverage for allowances, imagery, phases, and covered/clipped text through a browser adapter. Updated the vendored-source modification record.
+
 ## Unreleased — design-source merge 2026-10-14
 
 - Added `direct`: art direction for public-facing pages backed by the bundled taste-skill v2 runtime (`tools/taste/`): subject inventory, dealt directions from 247 studied sites, idea and live-thing gates, open-collection imagery with credits, a real-browser inspector at 1440/768/390, screenshot critique, and a required motion layer.
